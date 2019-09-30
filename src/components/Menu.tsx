@@ -5,6 +5,7 @@ const Menu = (props: any) => (
   <nav id="menu">
     <Link to="/">Usuarios</Link>
     <Link to="/tareas">Tareas</Link>
+    <Link to="/login">Login</Link>
   </nav>
 );
 
