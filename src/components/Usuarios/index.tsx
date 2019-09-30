@@ -1,8 +1,11 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import * as usuariosActions from "../../actions/usuariosActions";
+import { Button, CssBaseline, withStyles } from "@material-ui/core";
+import styles from "./styles";
 
 const Usuarios = (props: any) => {
+  const { classes } = props;
   React.useEffect(() => {
     props.traerTodos();
   }, []);
@@ -10,7 +13,11 @@ const Usuarios = (props: any) => {
   console.log(props);
 
   return (
-    <div>
+    <React.Fragment>
+      <CssBaseline />
+      <Button color="primary" variant="contained">
+        Submit
+      </Button>
       <table className="tabla">
         <thead>
           <tr>
@@ -22,14 +29,14 @@ const Usuarios = (props: any) => {
         <tbody>
           {props.usuarios.map((item: any, i: number) => (
             <tr key={i}>
-              <td>{item.name}</td>
+              <td className={classes.test1}>{item.name}</td>
               <td>{item.email}</td>
               <td>{item.website}</td>
             </tr>
           ))}
         </tbody>
       </table>
-    </div>
+    </React.Fragment>
   );
 };
 
@@ -40,4 +47,4 @@ const mapStateToProps = (reducers: any) => {
 export default connect(
   mapStateToProps,
   usuariosActions
-)(Usuarios);
+)(withStyles(styles)(Usuarios));
