@@ -8,13 +8,18 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import reduxThunk from "redux-thunk";
 
+import theme from './shared/MainTheme'
+
 import reducers from "./reducers";
+import { ThemeProvider } from "@material-ui/styles";
 
 const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <ThemeProvider theme={theme}>
+      <App />
+    </ThemeProvider>
   </Provider>,
   document.getElementById("root")
 );
