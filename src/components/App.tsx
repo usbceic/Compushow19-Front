@@ -9,7 +9,7 @@ const Tareas = () => <div>Tareas</div>;
 const App = () => (
   <BrowserRouter>
     <Menu />
-    <div className="margen">
+    <div style={{ height: '100vh', overflow: 'auto' }}>
       <Route exact path="/" component={Usuarios} />
       <Route exact path="/tareas" component={Tareas} />
       <Route exact path="/login" component={Login} />
