@@ -1,9 +1,8 @@
 import * as React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import Menu from "./Menu";
+import Menu from "./Navbar/Menu";
 import Usuarios from "./Usuarios";
 import Login from "./Login";
-
 const Tareas = () => <div>Tareas</div>;
 
 const App = () => (
