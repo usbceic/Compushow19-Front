@@ -4,6 +4,7 @@ import { Switch, Route, RouteComponentProps, Redirect } from 'react-router'
 import Menu from "./Navbar/Menu";
 import Usuarios from "./Usuarios";
 import Login from "./Login";
+import Footer from './Footer'
 
 const App = () => (
   <BrowserRouter>
@@ -12,7 +13,7 @@ const App = () => (
         <Route
           path='/'
           exact
-          render={() => <Redirect to='/home' />} />
+          render={() => <Redirect to='/login' />} />
         <Route
           path='/home'
           exact
@@ -20,6 +21,7 @@ const App = () => (
             <React.Fragment>
               <Menu {...props} />
               <Usuarios {...props} />
+              <Footer {...props} />
             </React.Fragment>}
         />
         <Route
@@ -29,6 +31,7 @@ const App = () => (
             <React.Fragment>
               <Menu {...props} />
               <Login {...props} />
+              <Footer {...props} />
             </React.Fragment>}
         />
       </Switch>
