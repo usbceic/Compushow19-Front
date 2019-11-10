@@ -53,7 +53,7 @@ const Menu = (props: any) => {
     >
       <List>
         {['home', 'login'].map((e: any, i: number) => (
-          <ListItem button key={i} style={{ background: tab == e ? '#f9ecb7' : 'white' }}>
+          <ListItem button key={i} style={{ background: tab === e ? '#f9ecb7' : 'white' }}>
             <Link className={classes.linkButton} style={{ textTransform: 'capitalize' }} to={`/${e}`}>{e}</Link>
           </ListItem>
         ))}
