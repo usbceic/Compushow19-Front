@@ -6,31 +6,15 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import styles from './styles'
 
-const useStyles = makeStyles(theme => ({
-  "@global": {
-    body: {
-      backgroundColor: theme.palette.common.white
-    }
-  },
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
-}));
+import { withStyles } from "@material-ui/core";
+import { connect } from "react-redux";
+import * as usuariosActions from "../../actions/usuariosActions";
 
-export default function SignIn() {
-  const classes = useStyles();
+const SignIn = (props: any) => {
+  const { classes } = props;
 
   return (
     <Container component="main" maxWidth="sm" style={{ height: 'calc(80vh - 60px)', display: 'flex', alignItems: 'center' }} >
@@ -86,3 +70,12 @@ export default function SignIn() {
     </Container>
   );
 }
+
+const mapStateToProps = (reducers: any) => {
+  return reducers.usuariosReducer;
+};
+
+export default connect(
+  mapStateToProps,
+  usuariosActions
+)(withStyles(styles)(SignIn));

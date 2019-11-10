@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { withStyles } from "@material-ui/core";
+import { withStyles, Typography } from "@material-ui/core";
 import styles from "./styles";
 import { connect } from "react-redux";
 import * as usuariosActions from "../../actions/usuariosActions";
@@ -21,6 +21,13 @@ const Menu = (props: any) => {
     bottom: false,
     right: false,
   });
+
+  const [tab, setTab] = React.useState(props.location.pathname.split('/').reverse()[0])
+
+  React.useEffect(() => {
+    setTab(props.location.pathname.split('/').reverse()[0])
+  }, [props.location.pathname])
+
 
   type DrawerSide = 'left';
   const toggleDrawer = (side: DrawerSide, open: boolean) => (
@@ -45,8 +52,8 @@ const Menu = (props: any) => {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        {['tareas', 'login'].map((e: any, i: number) => (
-          <ListItem button key={i}>
+        {['home', 'login'].map((e: any, i: number) => (
+          <ListItem button key={i} style={{ background: tab == e ? '#f9ecb7' : 'white' }}>
             <Link className={classes.linkButton} style={{ textTransform: 'capitalize' }} to={`/${e}`}>{e}</Link>
           </ListItem>
         ))}
@@ -57,7 +64,10 @@ const Menu = (props: any) => {
   return (
     <nav className={classes.menu}>
       <div>
-        <Button onClick={toggleDrawer('left', true)}><MenuIcon style={{ color: '#f7f7f7' }} /></Button>
+        <div style={{ display: 'flex' }}>
+          <Button onClick={toggleDrawer('left', true)}><MenuIcon style={{ color: '#f7f7f7' }} /></Button>
+          <Typography variant="h5" style={{ marginLeft: '5px', textTransform: 'capitalize', marginTop: '2px' }}>{tab}</Typography>
+        </div>
         <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
           {sideList('left')}
         </Drawer>

@@ -10,8 +10,6 @@ const Usuarios = (props: any) => {
     props.traerTodos();
   }, []);
 
-  console.log(props);
-
   return (
     <React.Fragment>
       <CssBaseline />

@@ -1,17 +1,37 @@
 import * as React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import { Switch, Route, RouteComponentProps, Redirect } from 'react-router'
 import Menu from "./Navbar/Menu";
 import Usuarios from "./Usuarios";
 import Login from "./Login";
-const Tareas = () => <div>Tareas</div>;
 
 const App = () => (
   <BrowserRouter>
-    <Menu />
     <div style={{ height: '100vh', overflow: 'auto' }}>
-      <Route exact path="/" component={Usuarios} />
-      <Route exact path="/tareas" component={Tareas} />
-      <Route exact path="/login" component={Login} />
+      <Switch>
+        <Route
+          path='/'
+          exact
+          render={() => <Redirect to='/home' />} />
+        <Route
+          path='/home'
+          exact
+          render={(props: RouteComponentProps) =>
+            <React.Fragment>
+              <Menu {...props} />
+              <Usuarios {...props} />
+            </React.Fragment>}
+        />
+        <Route
+          path='/login'
+          exact
+          render={(props: RouteComponentProps) =>
+            <React.Fragment>
+              <Menu {...props} />
+              <Login {...props} />
+            </React.Fragment>}
+        />
+      </Switch>
     </div>
   </BrowserRouter>
 );
