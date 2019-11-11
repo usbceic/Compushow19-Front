@@ -2,8 +2,9 @@ import * as React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Switch, Route, RouteComponentProps, Redirect } from 'react-router'
 import Menu from "./Navbar/Menu";
-import Usuarios from "./Usuarios";
+import Home from "./Home";
 import Login from "./Login";
+import Nominaciones from "./Nominaciones"
 import Footer from './Footer'
 
 const App = () => (
@@ -20,7 +21,7 @@ const App = () => (
           render={(props: RouteComponentProps) =>
             <React.Fragment>
               <Menu {...props} />
-              <Usuarios {...props} />
+              <Home {...props} />
               <Footer {...props} />
             </React.Fragment>}
         />
@@ -33,6 +34,17 @@ const App = () => (
               <Footer {...props} />
             </React.Fragment>}
         />
+        <Route
+          path='/nominaciones'
+          exact
+          render={(props: RouteComponentProps) =>
+            <React.Fragment>
+              <Menu {...props} />
+              <Nominaciones {...props} />
+              <Footer {...props} />
+            </React.Fragment>}
+        />
+        
       </Switch>
     </div>
   </BrowserRouter>
