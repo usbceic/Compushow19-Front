@@ -16,12 +16,20 @@ import * as usuariosActions from "../../actions/usuariosActions";
 const SignIn = (props: any) => {
   const { classes } = props;
 
+  const CssTextField = withStyles({
+    root: {
+      '& label.Mui-focused': {
+        color: '#fe000a',
+      },
+    },
+  })(TextField);
+
   return (
-    <Container component="main" maxWidth="sm" style={{ height: 'calc(80vh - 60px)', display: 'flex', alignItems: 'center' }} >
+    <Container component="main" maxWidth="sm" style={{ height: 'calc(80vh - 60px)', display: 'flex', alignItems: 'center', position: 'relative' }} >
       <CssBaseline />
       <div className={classes.paper}>
         <form className={classes.form} noValidate>
-          <TextField
+          <CssTextField
             variant="outlined"
             margin="normal"
             required
@@ -30,18 +38,17 @@ const SignIn = (props: any) => {
             label="Email"
             name="email"
             autoComplete="email"
-            autoFocus
             style={{ background: 'white' }}
           />
-          <TextField
+          <CssTextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            name="password"
-            label="Password"
-            type="password"
             id="password"
+            label="Password"
+            name="password"
+            type="password"
             style={{ background: 'white' }}
             autoComplete="current-password"
           />

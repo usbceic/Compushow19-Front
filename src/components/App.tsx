@@ -29,7 +29,6 @@ const App = () => (
           exact
           render={(props: RouteComponentProps) =>
             <React.Fragment>
-              <Menu {...props} />
               <Login {...props} />
               <Footer {...props} />
             </React.Fragment>}
