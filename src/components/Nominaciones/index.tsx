@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './styles'
-import { Typography } from '@material-ui/core'
+import { Typography, TextField } from '@material-ui/core'
 
 import { Route } from 'react-router'
 import { withStyles, CssBaseline } from "@material-ui/core";
@@ -38,8 +38,31 @@ const Nominaciones = (props: any) => {
     </div>
   </div>
 
-  console.log(props)
+  const vote1 = () => (
+    <React.Fragment>
+    <div style={{display: 'flex'}}>
+      <div style={{marginRight: '10px'}}>
+      <TextField fullWidth />
+      </div>
+      <div>
+      <TextField fullWidth />
+      </div>
+    </div>
+    </React.Fragment>
+  )
 
+  const vote2 = (
+    <React.Fragment>
+    <div style={{display: 'flex'}}>
+      <div style={{marginRight: '10px'}}>
+      <TextField fullWidth />
+      </div>
+      <div>
+      <TextField fullWidth />
+      </div>
+    </div>
+    </React.Fragment>
+  )
 
   return (
     <React.Fragment>
@@ -48,85 +71,113 @@ const Nominaciones = (props: any) => {
         path={`${props.match.path}/adoptado`}
         exact
         render={() =>
-          banner(<Typography>adoptado</Typography>, adoptado)
+          banner(<React.Fragment>
+
+          </React.Fragment>, adoptado)
         } />
       <Route
         path={`${props.match.path}/cartoon`}
         exact
         render={() =>
-          banner(<Typography>cartoon</Typography>, cartoon)
+          banner(<React.Fragment>
+            
+          </React.Fragment>, cartoon)
         } />
       <Route
         path={`${props.match.path}/chancero`}
         exact
         render={() =>
-          banner(<Typography>chancero</Typography>, chancero)
+          banner(<React.Fragment>
+            
+            </React.Fragment>, chancero)
         } />
       <Route
         path={`${props.match.path}/comadre`}
         exact
         render={() =>
-          banner(<Typography>comadre</Typography>, comadre)
+          banner(<React.Fragment>
+            
+            </React.Fragment>, comadre)
         } />
       <Route
         path={`${props.match.path}/compadre`}
         exact
         render={() =>
-          banner(<Typography>compadre</Typography>, compadre)
+          banner(<React.Fragment>
+            
+            </React.Fragment>, compadre)
         } />
       <Route
         path={`${props.match.path}/cono`}
         exact
         render={() =>
-          banner(<Typography>cono</Typography>, cono)
+          banner(<React.Fragment>
+            
+            </React.Fragment>, cono)
         } />
       <Route
         path={`${props.match.path}/falso`}
         exact
         render={() =>
-          banner(<Typography>falso</Typography>, falso)
+          banner(<React.Fragment>
+            
+            </React.Fragment>, falso)
         } />
       <Route
         path={`${props.match.path}/fitness`}
         exact
         render={() =>
-          banner(<Typography>fitness</Typography>, fitness)
+          banner(<React.Fragment>
+            
+            </React.Fragment>, fitness)
         } />
       <Route
         path={`${props.match.path}/gordito`}
         exact
         render={() =>
-          banner(<Typography>gordito</Typography>, gordito)
+          banner(<React.Fragment>
+            
+            </React.Fragment>, gordito)
         } />
       <Route
         path={`${props.match.path}/inmamable`}
         exact
         render={() =>
-          banner(<Typography>inmamable</Typography>, inmamable)
+          banner(<React.Fragment>
+            
+            </React.Fragment>, inmamable)
         } />
       <Route
         path={`${props.match.path}/love`}
         exact
         render={() =>
-          banner(<Typography>love</Typography>, love)
+          banner(<React.Fragment>
+            
+            </React.Fragment>, love)
         } />
       <Route
         path={`${props.match.path}/papi`}
         exact
         render={() =>
-          banner(<Typography>papi</Typography>, papi)
+          banner(<React.Fragment>
+            
+            </React.Fragment>, papi)
         } />
       <Route
         path={`${props.match.path}/pro`}
         exact
         render={() =>
-          banner(<Typography>pro</Typography>, pro)
+          banner(<React.Fragment>
+            
+            </React.Fragment>, pro)
         } />
       <Route
         path={`${props.match.path}/team`}
         exact
         render={() =>
-          banner(<Typography>team</Typography>, team)
+          banner(<React.Fragment>
+            
+            </React.Fragment>, team)
         } />
     </React.Fragment>
   );

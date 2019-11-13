@@ -1,11 +1,20 @@
 import * as React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Switch, Route, RouteComponentProps, Redirect } from 'react-router'
+import axios from 'axios'
 import Menu from "./Navbar/Menu";
 import Home from "./Home";
 import Login from "./Login";
 import Nominaciones from "./Nominaciones"
 import Footer from './Footer'
+
+// const instance = axios.create({
+//   baseURL: 'https://compushow.link/v1/api',
+// })
+
+// instance.get('/nominations')
+// .then((res: any) => console.log(res))
+// .catch((err: any) => console.log(err))
 
 const App = () => (
   <BrowserRouter>
