@@ -52,9 +52,9 @@ const Menu = (props: any) => {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        {['home', 'nominaciones/gordito', 'nominaciones/love'].map((e: any, i: number) => (
-          <ListItem button key={i} style={{ background: tab === e ? '#f9ecb7' : 'white' }}>
-            <Link className={classes.linkButton} style={{ textTransform: 'capitalize' }} to={`/${e}`}>{e}</Link>
+        {['home', 'nominaciones/adoptado', 'nominaciones/cartoon', 'nominaciones/chancero', 'nominaciones/comadre', 'nominaciones/compadre', 'nominaciones/cono', 'nominaciones/falso', 'nominaciones/fitness', 'nominaciones/gordito', 'nominaciones/inmamable', 'nominaciones/love', 'nominaciones/papi', 'nominaciones/pro', 'nominaciones/team'].map((e: any, i: number) => (
+          <ListItem button key={i} style={{ background: tab === e.split('/').reverse()[0] ? '#f9ecb7' : 'white' }}>
+            <Link className={classes.linkButton} style={{ textTransform: 'capitalize' }} to={`/${e}`}>{e.split('/').reverse()[0]}</Link>
           </ListItem>
         ))}
       </List>
@@ -62,7 +62,7 @@ const Menu = (props: any) => {
   );
 
   return (
-    <nav className={classes.menu} style={{zIndex: 8}}>
+    <nav className={classes.menu} style={{ zIndex: 8 }}>
       <div>
         <div style={{ display: 'flex' }}>
           <Button onClick={toggleDrawer('left', true)}><MenuIcon style={{ color: '#f7f7f7' }} /></Button>
