@@ -36,7 +36,6 @@ const App = () => (
         />
         <Route
           path='/nominaciones'
-          exact
           render={(props: RouteComponentProps) =>
             <React.Fragment>
               <Menu {...props} />

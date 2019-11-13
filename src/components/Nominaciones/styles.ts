@@ -42,6 +42,29 @@ const styles = (theme: Theme) =>
                 fontSize: '0.7rem',
             },
         },
+        avatarBanner: {
+            width: '300px',
+            height: '300px',
+            borderRadius: '120px',
+            background: 'red',
+            zIndex: 6,
+            [theme.breakpoints.down('lg')]: {
+                width: '250px',
+            height: '250px',
+            },
+            [theme.breakpoints.down('md')]: {
+                width: '200px',
+            height: '200px',
+            },
+            [theme.breakpoints.down('sm')]: {
+                width: '150px',
+            height: '150px',
+            },
+            [theme.breakpoints.down('xs')]: {
+                width: '100px',
+            height: '100px',
+            },
+        },
     });
 
 export default styles;

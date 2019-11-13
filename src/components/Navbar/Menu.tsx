@@ -52,7 +52,7 @@ const Menu = (props: any) => {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        {['home', 'nominaciones'].map((e: any, i: number) => (
+        {['home', 'nominaciones/gordito', 'nominaciones/love'].map((e: any, i: number) => (
           <ListItem button key={i} style={{ background: tab === e ? '#f9ecb7' : 'white' }}>
             <Link className={classes.linkButton} style={{ textTransform: 'capitalize' }} to={`/${e}`}>{e}</Link>
           </ListItem>
