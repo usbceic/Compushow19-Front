@@ -53,7 +53,7 @@ const Menu = (props: any) => {
     >
       <List>
         {['home', 'nominaciones/adoptado', 'nominaciones/cartoon', 'nominaciones/chancero', 'nominaciones/comadre', 'nominaciones/compadre', 'nominaciones/cono', 'nominaciones/falso', 'nominaciones/fitness', 'nominaciones/gordito', 'nominaciones/inmamable', 'nominaciones/love', 'nominaciones/papi', 'nominaciones/pro', 'nominaciones/team'].map((e: any, i: number) => (
-          <ListItem button key={i} style={{ background: tab === e.split('/').reverse()[0] ? '#f9ecb7' : 'white' }}>
+          <ListItem button key={i} className={classes.highlightItem} style={{ background: tab === e.split('/').reverse()[0] ? '#f9ecb7' : 'white' }}>
             <Link className={classes.linkButton} style={{ textTransform: 'capitalize' }} to={`/${e}`}>{e.split('/').reverse()[0]}</Link>
           </ListItem>
         ))}

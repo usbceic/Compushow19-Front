@@ -72,6 +72,11 @@ const styles = (theme: Theme) =>
                 fontSize: '0.7rem',
             },
         },
+        highlightItem: {
+            '&:hover': {
+                background: '#FAFAFA !important',
+            },
+        },
     });
 
 export default styles;

@@ -42,6 +42,13 @@ const styles = (theme: Theme) =>
                 fontSize: '0.7rem',
             },
         },
+        compushowLogo: {
+            maxWidth: '200px',
+            maxHeight: '200px',
+            [theme.breakpoints.down('sm')]: {
+                fontSize: '0.7rem',
+            },
+        },
     });
 
 export default styles;
