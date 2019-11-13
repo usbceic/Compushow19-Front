@@ -42,27 +42,52 @@ const styles = (theme: Theme) =>
                 fontSize: '0.7rem',
             },
         },
-        avatarBanner: {
-            width: '300px',
-            height: '300px',
-            borderRadius: '120px',
-            background: 'red',
+        bannerAvatar: {
+            width: '216px',
+            height: '216px',
             zIndex: 6,
             [theme.breakpoints.down('lg')]: {
-                width: '250px',
-            height: '250px',
+                width: '180px',
+                height: '180px',
             },
             [theme.breakpoints.down('md')]: {
-                width: '200px',
-            height: '200px',
+                width: '150px',
+                height: '150px',
             },
             [theme.breakpoints.down('sm')]: {
-                width: '150px',
-            height: '150px',
+                width: '130px',
+                height: '130px',
             },
             [theme.breakpoints.down('xs')]: {
-                width: '100px',
-            height: '100px',
+                width: '110px',
+                height: '110px',
+            },
+        },
+        vote1Div: {
+            width: '450px',
+            [theme.breakpoints.down('lg')]: {
+                width: '450px',
+            },
+            [theme.breakpoints.down('md')]: {
+                width: '400px',
+            },
+            [theme.breakpoints.down('sm')]: {
+                width: '350px',
+            },
+            [theme.breakpoints.down('xs')]: {
+                width: '300px',
+            },
+        },
+        vote2Div: {
+            width: '550px',
+            [theme.breakpoints.down('md')]: {
+                width: '475px',
+            },
+            [theme.breakpoints.down('sm')]: {
+                width: '400px',
+            },
+            [theme.breakpoints.down('xs')]: {
+                width: '315px',
             },
         },
     });

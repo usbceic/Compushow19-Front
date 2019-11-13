@@ -13,6 +13,9 @@ const styles = (theme: Theme) =>
         linkButton: {
             width: '100%',
             height: '100%',
+            paddingTop: '8.5px',
+            margin: '0',
+            padding: '0',
             textAlign: 'center',
             textDecoration: 'none',
             color: 'black',
@@ -73,6 +76,12 @@ const styles = (theme: Theme) =>
             },
         },
         highlightItem: {
+            margin: '0',
+            padding: '0',
+            height: '40px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
             '&:hover': {
                 background: '#FAFAFA !important',
             },

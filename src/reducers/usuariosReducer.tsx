@@ -1,11 +1,12 @@
 const INITIAL_STATE = {
-  usuarios: []
+  usuario: [],
+  api: {}
 };
 
 export default (state = INITIAL_STATE, action: any) => {
   switch (action.type) {
-    case "traer_usuarios":
-      return { ...state, usuarios: action.payload };
+    case "traer_usuario":
+      return { ...state, usuario: action.payload };
     default:
       return state;
   }

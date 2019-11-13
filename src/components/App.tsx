@@ -18,7 +18,7 @@ import Footer from './Footer'
 
 const App = () => (
   <BrowserRouter>
-    <div style={{ height: '100vh', overflow: 'auto' }}>
+    <div style={{ height: '100vh', overflow: 'auto', width: '100%' }}>
       <Switch>
         <Route
           path='/'
@@ -52,7 +52,7 @@ const App = () => (
               <Footer {...props} />
             </React.Fragment>}
         />
-        
+
       </Switch>
     </div>
   </BrowserRouter>
