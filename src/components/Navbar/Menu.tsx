@@ -5,6 +5,8 @@ import styles from "./styles";
 import { connect } from "react-redux";
 import * as usuariosActions from "../../actions/usuariosActions";
 
+import axios from 'axios'
+
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
@@ -24,10 +26,23 @@ const Menu = (props: any) => {
 
   const [tab, setTab] = React.useState(props.location.pathname.split('/').reverse()[0])
 
+  const [categorias, setCategorias] = React.useState([])
+
+  React.useEffect(() => {
+    axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
+      .then((res: any) => {
+        setCategorias(res.data)
+      })
+      .catch((err: any) => {
+        console.log(err)
+      })
+  }, [])
+
   React.useEffect(() => {
     setTab(props.location.pathname.split('/').reverse()[0])
   }, [props.location.pathname])
 
+  console.log(categorias)
 
   type DrawerSide = 'left';
   const toggleDrawer = (side: DrawerSide, open: boolean) => (
@@ -52,7 +67,7 @@ const Menu = (props: any) => {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        {['home', 'nominaciones/adoptado', 'nominaciones/cartoon', 'nominaciones/chancero', 'nominaciones/comadre', 'nominaciones/compadre', 'nominaciones/cono', 'nominaciones/falso', 'nominaciones/fitness', 'nominaciones/gordito', 'nominaciones/inmamable', 'nominaciones/love', 'nominaciones/papi', 'nominaciones/pro', 'nominaciones/team', 'nominaciones/chapita', 'nominaciones/princeso', 'nominaciones/mami', 'nominaciones/master', 'nominaciones/tukky'].map((e: any, i: number) => (
+        {['nominaciones/adoptado', 'nominaciones/cartoon', 'nominaciones/chancero', 'nominaciones/comadre', 'nominaciones/compadre', 'nominaciones/cono', 'nominaciones/falso', 'nominaciones/fitness', 'nominaciones/gordito', 'nominaciones/inmamable', 'nominaciones/love', 'nominaciones/papi', 'nominaciones/pro', 'nominaciones/team', 'nominaciones/chapita', 'nominaciones/princeso', 'nominaciones/mami', 'nominaciones/master', 'nominaciones/tukky'].map((e: any, i: number) => (
           <ListItem button key={i} className={classes.highlightItem} style={{ background: tab === e.split('/').reverse()[0] ? '#f9ecb7' : 'white' }}>
             <Link className={classes.linkButton} style={{ textTransform: 'capitalize' }} to={`/${e}`}>{e.split('/').reverse()[0]}</Link>
           </ListItem>

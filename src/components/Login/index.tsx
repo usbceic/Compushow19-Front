@@ -1,9 +1,10 @@
 import React from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
 import styles from './styles'
 import Typography from '@material-ui/core/Typography'
+
+import { Redirect } from 'react-router'
 
 import { withStyles } from "@material-ui/core";
 import { connect } from "react-redux";
@@ -20,19 +21,28 @@ const SignIn = (props: any) => {
   const { classes } = props;
   const { enqueueSnackbar } = useSnackbar()
 
-  React.useEffect(() => {
-    axios.get('https://compushow.link/v1/api/users/me', { headers: { Authorization: "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImRiMDJhYjMwZTBiNzViOGVjZDRmODE2YmI5ZTE5NzhmNjI4NDk4OTQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNDk3MTY2MDg5MTIwLXZnYTNucWF0MGo0bTZjcmcybjVtbzUwNjBqM2dldWdrLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNDk3MTY2MDg5MTIwLXZnYTNucWF0MGo0bTZjcmcybjVtbzUwNjBqM2dldWdrLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTA2MTE3NDg5NTUxOTM2NDU3OTQ5IiwiaGQiOiJ1c2IudmUiLCJlbWFpbCI6IjE1LTEwNDYwQHVzYi52ZSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoicHB1ZHhDdHp3VzlQaE8tbnFDbmEzQSIsIm5hbWUiOiJQZWRybyBTYW11ZWwgZGUgTmF6YXJldGggRmFndW5kZXogQ2FtYXJhIiwicGljdHVyZSI6Imh0dHBzOi8vbGg1Lmdvb2dsZXVzZXJjb250ZW50LmNvbS8tNThVZ2pOdVJVWG8vQUFBQUFBQUFBQUkvQUFBQUFBQUFBQUEvQUNIaTNyZEViaFZzYlN0QzV2WUdsMWFVeXB4MmVodnB3QS9zOTYtYy9waG90by5qcGciLCJnaXZlbl9uYW1lIjoiUGVkcm8gU2FtdWVsIGRlIE5hemFyZXRoIiwiZmFtaWx5X25hbWUiOiJGYWd1bmRleiBDYW1hcmEiLCJsb2NhbGUiOiJlcyIsImlhdCI6MTU3MzY5NzIzOSwiZXhwIjoxNTczNzAwODM5LCJqdGkiOiIxMTI0ODk0MDZjNGI2NTljMGMwZDI5MDFkZTk1ZDg0N2E4ZTkxOGM0In0.pVQB6X9eQ81mSK1CT52lnb-FLvnpA6Ncw4A4-7KOPxdFPmqAOWxi72C0g2frtR1Ot46AKYBHNQOM9zXEyP9f5Wl4GvO9uboV93TPZgpFhtCQfDdRy3zfdaEtA-V27LD0UvIR5ReeTKx2BPXqy7YVoUSK4r7LxyCBd-KSswWwp1tpu3sQ-0zwk4WdL8ZAhmCziEY-kORwzdIXyIB1Lc25l3OdhY6KrUkoln6JTNppAMsoOpIAH9qK8eVZDzeX7-lG4m5zN_2zTpkMVEszAPKAPxU3mO9M4rZh_4Qkpo2N0T_j6euYwn9ylcj7iY_MPw2u9ojEHg70AkCslYL3wjTlMg" } })
-      .then((res: any) => console.log(res))
-      .catch((err: any) => console.log(err))
-  }, [])
+  if (props.user.token) {
+    return <Redirect to="/home" />
+  }
 
   const onSignUpSuccess = (response: any) => {
-    console.log(response);
-    // enqueueSnackbar('Login successfull', { variant: 'success' })
+    axios.get('https://compushow.link/v1/api/users/me', { params: {}, headers: { 'Authorization': `Bearer ${response.tokenId}` } })
+      .then((res: any) => {
+        if (res.status === 200) {
+          props.dispatchUser({ profile: res.data, token: response.tokenId })
+          enqueueSnackbar('Bienvenido al CompuShow 2019', { variant: 'success' })
+          return props.history.push('/home')
+        }
+      })
+      .catch((err: any) => {
+        enqueueSnackbar('Debes usar tu correo @usb.ve (solo computistas)', { variant: 'error' })
+        console.log(err)
+      })
   }
 
   const onSignUpFailure = (response: any) => {
-    enqueueSnackbar('Login failure', { variant: 'error' })
+    enqueueSnackbar('Fallo en el login', { variant: 'error' })
+    console.log(response)
   }
 
   return (
@@ -40,7 +50,7 @@ const SignIn = (props: any) => {
       <CssBaseline />
       <div className={classes.paper} style={{ width: '100%' }}>
         <div style={{ width: '100%', textAlign: 'center' }}>
-          <img src={`${compushowLogo}`} className={classes.compushowLogo} />
+          <img src={`${compushowLogo}`} alt="" className={classes.compushowLogo} />
         </div>
         <div style={{ marginBottom: '15px' }}>
           <Typography variant="h5" align="center" className={classes.h5}>ESTE AÑO INICIA SESIÓN CON TU USBID</Typography>

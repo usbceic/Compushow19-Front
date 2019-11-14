@@ -1,8 +1,6 @@
-import axios from "axios";
-export const traerTodos = () => async (dispatch: any) => {
-  const resp = await axios.get("https://jsonplaceholder.typicode.com/users/1");
+export const dispatchUser = (data: any) => async (dispatch: any) => {
   dispatch({
-    type: "traer_usuario",
-    payload: resp.data
+    type: "fetch_user",
+    payload: data
   });
 };

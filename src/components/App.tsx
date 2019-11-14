@@ -1,61 +1,76 @@
 import * as React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Switch, Route, RouteComponentProps, Redirect } from 'react-router'
-import axios from 'axios'
 import Menu from "./Navbar/Menu";
 import Home from "./Home";
 import Login from "./Login";
 import Nominaciones from "./Nominaciones"
 import Footer from './Footer'
 
-// const instance = axios.create({
-//   baseURL: 'https://compushow.link/v1/api',
-// })
+import axios from 'axios'
 
-// instance.get('/nominations')
-// .then((res: any) => console.log(res))
-// .catch((err: any) => console.log(err))
+import { connect } from "react-redux";
+import * as usuariosActions from "../actions/usuariosActions";
 
-const App = () => (
-  <BrowserRouter>
-    <div style={{ height: '100vh', overflow: 'auto', width: '100%' }}>
-      <Switch>
-        <Route
-          path='/'
-          exact
-          render={() => <Redirect to='/login' />} />
-        <Route
-          path='/home'
-          exact
-          render={(props: RouteComponentProps) =>
-            <React.Fragment>
-              <Menu {...props} />
-              <Home {...props} />
-              <Footer {...props} />
-            </React.Fragment>}
-        />
-        <Route
-          path='/login'
-          exact
-          render={(props: RouteComponentProps) =>
-            <React.Fragment>
-              <Login {...props} />
-              <Footer {...props} />
-            </React.Fragment>}
-        />
-        <Route
-          path='/nominaciones'
-          render={(props: RouteComponentProps) =>
-            <React.Fragment>
-              <Menu {...props} />
-              <Nominaciones {...props} />
-              <Footer {...props} />
-            </React.Fragment>}
-        />
+const App = (props: any) => {
 
-      </Switch>
-    </div>
-  </BrowserRouter>
-);
+  return (
+    <BrowserRouter>
+      <div style={{ height: '100vh', overflow: 'auto', width: '100%' }}>
+        <Switch>
+          <Route
+            path='/'
+            exact
+            render={() => <Redirect to='/login' />} />
+          <Route
+            path='/home'
+            exact
+            render={(props: RouteComponentProps) =>
+              <React.Fragment>
+                <Home {...props} />
+                <Footer {...props} />
+              </React.Fragment>}
+          />
+          <Route
+            path='/login'
+            exact
+            render={(props: RouteComponentProps) =>
+              <React.Fragment>
+                <Login {...props} />
+                <Footer {...props} />
+              </React.Fragment>}
+          />
+          <Route
+            path='/nominaciones'
+            render={(props2: RouteComponentProps) => {
 
-export default App;
+
+              if (!props.user.token) {
+                return (<Redirect to="/login" />)
+              }
+
+
+              return (<React.Fragment>
+                <Menu {...props2} />
+                <Nominaciones {...props2} />
+                <Footer {...props2} />
+              </React.Fragment>)
+            }
+            }
+          />
+
+        </Switch>
+      </div>
+    </BrowserRouter>
+  );
+
+}
+
+const mapStateToProps = (reducers: any) => {
+  return reducers.usuariosReducer;
+};
+
+export default connect(
+  mapStateToProps,
+  usuariosActions
+)(App)

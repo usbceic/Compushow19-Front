@@ -2,12 +2,14 @@ import React from "react";
 import styles from './styles'
 import { Typography, TextField, InputAdornment, Button } from '@material-ui/core'
 
-import { Route } from 'react-router'
+import { Route, Redirect } from 'react-router'
 import { withStyles, CssBaseline } from "@material-ui/core";
 import { connect } from "react-redux";
 import * as usuariosActions from "../../actions/usuariosActions";
 
 import Search from '@material-ui/icons/Search'
+
+import axios from 'axios'
 
 
 const bannerImage = require('../../shared/assets/Main.png')
@@ -28,20 +30,35 @@ const team = require('../../shared/assets/Portadas/team.png')
 const chapita = require('../../shared/assets/Portadas/chapita.png')
 
 const princeso = require('../../shared/assets/Portadas/princeso.png')
-// const mami = require('../../shared/assets/Portadas/mami.png')
-// const master = require('../../shared/assets/Portadas/master.png')
 const tukky = require('../../shared/assets/Portadas/tukky.png')
 
 
 const Nominaciones = (props: any) => {
   const { classes } = props
 
-  console.log(props)
+  const [computistas, setComputistas] = React.useState([])
+
+  const [categorias, setCategorias] = React.useState([])
 
   React.useEffect(() => {
-    props.traerTodos();
-  }, []);
+    axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
+      .then((res: any) => {
+        setCategorias(res.data)
+      })
+      .catch((err: any) => {
+        console.log(err)
+      })
+  }, [])
 
+  React.useEffect(() => {
+    axios.get('https://compushow.link/v1/api/users/all', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
+      .then((res: any) => {
+        setComputistas(res.data)
+      })
+      .catch((err: any) => {
+        console.log(err)
+      })
+  }, [])
 
   const banner = (component: any, img: any) => <div>
     <div style={{
