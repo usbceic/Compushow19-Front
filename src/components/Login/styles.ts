@@ -13,6 +13,27 @@ const styles = (theme: Theme) =>
             flexDirection: "column",
             alignItems: "center"
         },
+        compushowLogo: {
+            maxWidth: '350px',
+            maxHeight: '350px',
+            marginBottom: '30px',
+            [theme.breakpoints.down('lg')]: {
+                maxWidth: '300px',
+                maxHeight: '300px',
+            },
+            [theme.breakpoints.down('md')]: {
+                maxWidth: '250px',
+                maxHeight: '250px',
+            },
+            [theme.breakpoints.down('sm')]: {
+                maxWidth: '200px',
+                maxHeight: '200px',
+            },
+            [theme.breakpoints.down('xs')]: {
+                maxWidth: '150px',
+                maxHeight: '150px',
+            },
+        },
         form: {
             width: "100%", // Fix IE 11 issue.
         },
