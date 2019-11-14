@@ -12,13 +12,16 @@ import theme from './shared/MainTheme'
 
 import reducers from "./reducers";
 import { ThemeProvider } from "@material-ui/styles";
+import { SnackbarProvider } from 'notistack';
 
 const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
 ReactDOM.render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
-      <App />
+      <SnackbarProvider maxSnack={3}>
+        <App />
+      </SnackbarProvider>
     </ThemeProvider>
   </Provider>,
   document.getElementById("root")
