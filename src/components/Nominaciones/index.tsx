@@ -1,6 +1,8 @@
 import React from "react";
 import styles from './styles'
-import { Typography, TextField, InputAdornment, Button } from '@material-ui/core'
+import {
+  Typography, TextField, InputAdornment, Button, MenuItem, Select
+} from '@material-ui/core'
 
 import { Route, Redirect } from 'react-router'
 import { withStyles, CssBaseline } from "@material-ui/core";
@@ -20,9 +22,9 @@ const bannerImage = require('../../shared/assets/Main.png')
 const Nominaciones = (props: any) => {
   const { classes } = props
 
-  const [computistas, setComputistas] = React.useState([])
+  const [computistas, setComputistas] = React.useState<User[]>([])
 
-  const [categorias, setCategorias] = React.useState([])
+  const [categorias, setCategorias] = React.useState<Category[]>([])
 
   React.useEffect(() => {
     axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
@@ -80,6 +82,16 @@ const Nominaciones = (props: any) => {
       },
     },
   })(TextField);
+
+  const suggestions = computistas
+    .map(computista => (
+      <MenuItem value={computista.id} >{computista.name}</MenuItem>
+    ))
+
+
+  const UserDropdown = () => (
+    <Select onChange={console.log} >{suggestions}</Select>
+  )
 
   const ToUser = () => (
     <React.Fragment>
