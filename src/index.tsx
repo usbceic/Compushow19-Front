@@ -5,6 +5,8 @@ import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
 
 import { createStore, applyMiddleware } from "redux";
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 import { Provider } from "react-redux";
 import reduxThunk from "redux-thunk";
 
@@ -13,6 +15,8 @@ import theme from './shared/MainTheme'
 import reducers from "./reducers";
 import { ThemeProvider } from "@material-ui/styles";
 import { SnackbarProvider } from 'notistack';
+
+// const persistedReducer = persistReducer(persist)
 
 const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
