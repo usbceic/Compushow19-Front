@@ -4,6 +4,7 @@ import { withStyles, Typography } from "@material-ui/core";
 import styles from "./styles";
 import { connect } from "react-redux";
 import * as usuariosActions from "../../actions/usuariosActions";
+import {Category} from '../../Models/Category'
 
 import axios from 'axios'
 
@@ -67,9 +68,9 @@ const Menu = (props: any) => {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        {['nominaciones/adoptado', 'nominaciones/cartoon', 'nominaciones/chancero', 'nominaciones/comadre', 'nominaciones/compadre', 'nominaciones/cono', 'nominaciones/falso', 'nominaciones/fitness', 'nominaciones/gordito', 'nominaciones/inmamable', 'nominaciones/love', 'nominaciones/papi', 'nominaciones/pro', 'nominaciones/team', 'nominaciones/chapita', 'nominaciones/princeso', 'nominaciones/mami', 'nominaciones/master', 'nominaciones/tukky'].map((e: any, i: number) => (
-          <ListItem button key={i} className={classes.highlightItem} style={{ background: tab === e.split('/').reverse()[0] ? '#f9ecb7' : 'white' }}>
-            <Link className={classes.linkButton} style={{ textTransform: 'capitalize' }} to={`/${e}`}>{e.split('/').reverse()[0]}</Link>
+        {(categorias as Category[]).map((e: Category, i: number) => (
+          <ListItem button key={i} className={classes.highlightItem} style={{ background: 'white' }}>
+            <Link className={classes.linkButton} to={`/nominaciones/${e.name}`}>{e.name}</Link>
           </ListItem>
         ))}
       </List>
