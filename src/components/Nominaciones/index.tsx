@@ -11,6 +11,8 @@ import Search from '@material-ui/icons/Search'
 
 import axios from 'axios'
 import { Category } from "../../Models/Category";
+import { User } from '../../Models/User'
+import NomineeList from '../NomineeList/index'
 
 
 const bannerImage = require('../../shared/assets/Main.png')
@@ -157,7 +159,6 @@ const Nominaciones = (props: any) => {
         </div>
       </div>
     </React.Fragment>
-
   )
 
   const voteInputs = {
@@ -170,17 +171,20 @@ const Nominaciones = (props: any) => {
   return (
     <React.Fragment>
       <CssBaseline />
-      {(categorias as Category[]).map((category, index) =>
+      {(categorias as Category[]).map((category) =>
         <Route
+          key={category.id}
           path={`${props.match.path}/${category.name}`}
           exact
           render={() =>
-            banner(<React.Fragment>
+            banner(
+            <React.Fragment>
               <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Typography align="center" variant="h4" className={classes.h4}>{category.name}</Typography>
                 <div className={classes.vote1Div} style={{ marginTop: '45px' }}>
                   {voteInputs[category.type]()}
                 </div>
+                <NomineeList users={computistas as User[]} category={category.id} {...props}/>
               </div>
             </React.Fragment>, category.pictureUrl)
           } />
