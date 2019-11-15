@@ -46,7 +46,7 @@ const NomineeList = (props: NomineeListProps) => {
           {(nominees as User[]).map((nominee, index) => (
             <React.Fragment key={nominee.id}>
                 <ListItem button>
-                    <ListItemText primary={nominee.name} />
+                    <ListItemText primary={nominee.fullName} />
                 </ListItem>
                 {index !== (nominees.length - 1) ? <Divider /> : ''}
             </React.Fragment>
