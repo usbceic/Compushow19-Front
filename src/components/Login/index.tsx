@@ -61,7 +61,7 @@ const SignIn = (props: any) => {
           onSuccess={onSignUpSuccess}
           onFailure={onSignUpFailure}
           cookiePolicy={'single_host_origin'}
-        />,
+        />
       {document.getElementById('googleButton')}
       </div>
     </Container>
