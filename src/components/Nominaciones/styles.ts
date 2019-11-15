@@ -18,6 +18,8 @@ const styles = (theme: Theme) =>
             },
         },
         h4: {
+            color: '#fe000a',
+            fontWeight: 500,
             [theme.breakpoints.down('sm')]: {
                 fontSize: '1.5rem',
             },
@@ -25,6 +27,7 @@ const styles = (theme: Theme) =>
         h5: {
             [theme.breakpoints.down('sm')]: {
                 fontSize: '1.2rem',
+                padding: '1% 5% 0',
             },
         },
         h6: {
@@ -47,20 +50,20 @@ const styles = (theme: Theme) =>
             height: '216px',
             zIndex: 6,
             [theme.breakpoints.down('lg')]: {
-                width: '180px',
-                height: '180px',
+                width: '300px',
+                height: '300px',
             },
             [theme.breakpoints.down('md')]: {
                 width: '150px',
                 height: '150px',
             },
             [theme.breakpoints.down('sm')]: {
-                width: '130px',
-                height: '130px',
+                width: '250px',
+                height: '250px',
             },
             [theme.breakpoints.down('xs')]: {
-                width: '110px',
-                height: '110px',
+                width: '200px',
+                height: '200px',
             },
         },
         vote1Div: {

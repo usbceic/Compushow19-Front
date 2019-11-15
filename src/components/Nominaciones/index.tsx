@@ -3,8 +3,9 @@ import styles from './styles'
 import {
   Typography, TextField, InputAdornment, Button, MenuItem, Select
 } from '@material-ui/core'
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
-import { Route, Redirect } from 'react-router'
+import { Route } from 'react-router'
 import { withStyles, CssBaseline } from "@material-ui/core";
 import { connect } from "react-redux";
 import * as usuariosActions from "../../actions/usuariosActions";
@@ -48,8 +49,8 @@ const Nominaciones = (props: any) => {
 
   const banner = (component: any, img: any) => <div>
     <div style={{
-      height: '45vh', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 5, backgroundImage: `url(${bannerImage})`, backgroundSize: '100% 100%',
-      backgroundPosition: 'center',
+      height: '45vh', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 5, backgroundImage: `url(${bannerImage})`, backgroundSize: 'cover',
+      backgroundPosition: 'top center',
       backgroundRepeat: 'no-repeat'
     }}>
       <img src={`${img}`} className={classes.bannerAvatar} alt="" />
@@ -85,7 +86,7 @@ const Nominaciones = (props: any) => {
 
   const suggestions = computistas
     .map(computista => (
-      <MenuItem value={computista.id} >{computista.name}</MenuItem>
+      <MenuItem value={computista.id} >{computista.fullName}</MenuItem>
     ))
 
 
@@ -95,39 +96,55 @@ const Nominaciones = (props: any) => {
 
   const ToUser = () => (
     <React.Fragment>
-      <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
-        <CssTextField variant="outlined" placeholder="Nombre" fullWidth InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Search style={{ color: 'gray' }} />
-            </InputAdornment>
-          ),
-        }} />
-      </div>
+      <Autocomplete
+        style={{width: '100%'}}
+        options={computistas.map(student => student.fullName)}
+        renderInput={params => ( 
+          <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
+            <CssTextField {...params} variant="outlined" placeholder="Nombre" fullWidth InputProps={{
+              ...params.InputProps,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search style={{ color: 'gray' }} />
+                </InputAdornment>
+              ), 
+            }} />
+          </div>
+        )} />
     </React.Fragment>
   )
 
   const ToTwoUsers = () => (
     <React.Fragment>
       <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
-        <div style={{ marginRight: '10px' }}>
-          <CssTextField variant="outlined" placeholder="Nominado 1" fullWidth InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search style={{ color: 'gray' }} />
-              </InputAdornment>
-            ),
-          }} />
-        </div>
-        <div>
-          <CssTextField variant="outlined" placeholder="Nominado 2" fullWidth InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search style={{ color: 'gray' }} />
-              </InputAdornment>
-            ),
-          }} />
-        </div>
+        <Autocomplete
+          style={{width: '100%'}}
+          options={computistas.map(student => student.fullName)}
+          renderInput={params => (   
+            <div style={{ marginRight: '10px' }}>
+              <CssTextField {...params} variant="outlined" placeholder="Nominado 1" fullWidth InputProps={{
+                ...params.InputProps,
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search style={{ color: 'gray' }} />
+                  </InputAdornment>
+                ),
+              }} />
+            </div>
+          )}/>
+         <Autocomplete
+          style={{width: '100%'}}
+          options={computistas.map(student => student.fullName)}
+          renderInput={params => (
+            <CssTextField {...params} variant="outlined" placeholder="Nominado 2" fullWidth InputProps={{
+              ...params.InputProps,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search style={{ color: 'gray' }} />
+                </InputAdornment>
+              ),
+            }} />
+          )} />
       </div>
     </React.Fragment>
   )
@@ -135,15 +152,21 @@ const Nominaciones = (props: any) => {
   const ToUserWithExtra = () => (
     <React.Fragment>
       <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
-        <div style={{ marginRight: '10px' }}>
-          <CssTextField variant="outlined" placeholder="Nominado" fullWidth InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search style={{ color: 'gray' }} />
-              </InputAdornment>
-            ),
-          }} />
-        </div>
+      <Autocomplete
+        style={{width: '55%'}}
+        options={computistas.map(student => student.fullName)}
+        renderInput={params => (
+          <div style={{ marginRight: '10px' }}>
+            <CssTextField {...params} variant="outlined" placeholder="Nominado" fullWidth InputProps={{
+              ...params.InputProps,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search style={{ color: 'gray' }} />
+                </InputAdornment>
+              ),
+            }} />
+          </div>
+        )} />
         <div>
           <CssTextField variant="outlined" placeholder="¿Porqué?" fullWidth InputProps={{
             startAdornment: (
@@ -159,17 +182,25 @@ const Nominaciones = (props: any) => {
 
   const OnlyExtra = () => (
     <React.Fragment>
-      <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
-        <div style={{ marginRight: '10px' }}>
-          <CssTextField variant="outlined" placeholder="" fullWidth InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search style={{ color: 'gray' }} />
-              </InputAdornment>
-            ),
-          }} />
-        </div>
-      </div>
+      <Autocomplete
+        options={computistas.map(student => student.fullName)}
+        renderInput={params => (
+          <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
+            <div style={{ marginRight: '10px', width: '100%' }}>
+              <CssTextField {...params} variant="outlined" placeholder="Nombre" fullWidth
+                InputProps={{
+                  ...params.InputProps, 
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Search style={{ color: 'gray' }} />
+                    </InputAdornment>
+                  ),
+                }} 
+              />
+            </div>
+          </div>
+        )}
+      />
     </React.Fragment>
   )
 
@@ -193,6 +224,7 @@ const Nominaciones = (props: any) => {
             <React.Fragment>
               <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Typography align="center" variant="h4" className={classes.h4}>{category.name}</Typography>
+                <Typography align="center" variant="h5" className={classes.h5} style={{paddingTop: '1%'}}>{category.description}</Typography>
                 <div className={classes.vote1Div} style={{ marginTop: '45px' }}>
                   {voteInputs[category.type]()}
                 </div>
