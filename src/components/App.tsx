@@ -11,6 +11,11 @@ import { connect } from "react-redux";
 import * as usuariosActions from "../actions/usuariosActions";
 
 const App = (props: any) => {
+  const google_token = localStorage.getItem('google_token');
+
+  if (google_token) {
+    props.user.token = google_token;
+  }
 
   return (
     <BrowserRouter>
