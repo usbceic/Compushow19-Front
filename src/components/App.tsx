@@ -7,8 +7,6 @@ import Login from "./Login";
 import Nominaciones from "./Nominaciones"
 import Footer from './Footer'
 
-import axios from 'axios'
-
 import { connect } from "react-redux";
 import * as usuariosActions from "../actions/usuariosActions";
 
