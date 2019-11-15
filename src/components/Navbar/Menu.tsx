@@ -18,6 +18,12 @@ import MenuIcon from '@material-ui/icons/Menu'
 const Menu = (props: any) => {
   const { classes } = props
 
+  const google_token = localStorage.getItem('google_token')
+
+  if (google_token) {
+    props.user.token = google_token;
+  }
+
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -30,7 +36,7 @@ const Menu = (props: any) => {
   const [categorias, setCategorias] = React.useState([])
 
   React.useEffect(() => {
-    axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
+    axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${google_token}` } })
       .then((res: any) => {
         setCategorias(res.data)
       })
@@ -42,8 +48,6 @@ const Menu = (props: any) => {
   React.useEffect(() => {
     setTab(props.location.pathname.split('/').reverse()[0])
   }, [props.location.pathname])
-
-  console.log(categorias)
 
   type DrawerSide = 'left';
   const toggleDrawer = (side: DrawerSide, open: boolean) => (
@@ -59,6 +63,11 @@ const Menu = (props: any) => {
 
     setState({ ...state, [side]: open });
   };
+
+  const logOut = () => {
+    localStorage.removeItem('google_token')
+    return window.location.reload();
+  }
 
   const sideList = (side: DrawerSide) => (
     <div
@@ -79,11 +88,14 @@ const Menu = (props: any) => {
 
   return (
     <nav className={classes.menu} style={{ zIndex: 8 }}>
-      <div>
+      <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex' }}>
           <Button onClick={toggleDrawer('left', true)}><MenuIcon style={{ color: '#f7f7f7' }} /></Button>
           <Typography variant="h5" style={{ marginLeft: '5px', textTransform: 'capitalize', marginTop: '2px' }}>{tab}</Typography>
         </div>
+        <Button onClick={logOut} style={{ marginRight: '5px', textTransform: 'capitalize', marginTop: '2px', color: 'white' }}>
+          <Typography variant="h5">Log Out</Typography>
+        </Button>
         <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
           {sideList('left')}
         </Drawer>
