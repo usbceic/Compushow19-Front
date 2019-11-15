@@ -18,6 +18,7 @@ const styles = (theme: Theme) =>
             },
         },
         h4: {
+            fontWeight: 600,
             [theme.breakpoints.down('sm')]: {
                 fontSize: '1.5rem',
             },
