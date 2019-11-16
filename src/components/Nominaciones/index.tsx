@@ -24,7 +24,12 @@ const Nominaciones = (props: any) => {
   const { classes } = props
   const { enqueueSnackbar } = useSnackbar();
   const history = useHistory();
-  const depsCatch = {enqueueSnackbar, history, updateToken: props.updateToken};
+  const depsCatch = {
+    enqueueSnackbar, 
+    history, 
+    updateToken: props.updateToken,
+    token: props.user.token
+  };
 
   const [computistas, setComputistas] = React.useState([])
   const [categorias, setCategorias] = React.useState<Category[]>([])

@@ -29,7 +29,12 @@ const NomineeList = (props: NomineeListProps) => {
   const { classes } = props
   const { enqueueSnackbar } = useSnackbar()
   const history = useHistory()
-  const depsCatch = {enqueueSnackbar, history, updateToken: props.updateToken}
+  const depsCatch = {
+    enqueueSnackbar, 
+    history, 
+    updateToken: props.updateToken,
+    token: props.user.token
+  }
   const [nominees, setNominees] = React.useState([])
   const [enter, setEnter] = React.useState(true)
 

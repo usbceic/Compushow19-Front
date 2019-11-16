@@ -51,7 +51,8 @@ const Menu = (props: any) => {
         .catch(catchUnauthorized({
           enqueueSnackbar, 
           history, 
-          updateToken: props.updateToken})
+          updateToken: props.updateToken,
+          token: props.user.token})
         )
         .catch((err: any) => {
           console.log(err)
