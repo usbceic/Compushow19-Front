@@ -23,8 +23,8 @@ const Autocomplete = (props: any) => {
 
     return (
         <React.Fragment>
-            <div>
-                <Paper style={{ width: '100%', position: 'relative', zIndex: 9 }}>
+            <div style={{ position: 'relative', marginRight: '10px' }}>
+                <Paper style={{ width: '100%', position: 'absolute', zIndex: 9, top: '56px' }}>
                     {computistasArray.slice(0, 5).map((e: any, i: number) => e.fullName !== text ? <MenuItem key={i} onClick={() => {
                         setText(e.fullName)
                         setSelectedId(e.id)
