@@ -47,12 +47,15 @@ const Menu = (props: any) => {
       axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${google_token}` } })
         .then((res: any) => {
           setCategorias(res.data)
+        })
+        .catch(catchUnauthorized({
+          enqueueSnackbar, 
+          history, 
+          updateToken: props.updateToken})
+        )
+        .catch((err: any) => {
+          console.log(err)
         });
-
-    catchUnauthorized(request, {enqueueSnackbar, history, updateToken: props.updateToken}, (err: any) => {
-      console.log(err)
-    });
-    
   }, [])
 
   React.useEffect(() => {
@@ -87,7 +90,7 @@ const Menu = (props: any) => {
     >
       <List>
         {(categorias as Category[]).map((e: Category, i: number) => (
-          <ListItem button key={i} className={classes.highlightItem} style={{ background: 'white' }}>
+          <ListItem button key={i} className={classes.highlightItem} style={{ background: tab === e.name ? '#f9ecb7' : 'white' }}>
             <Link className={classes.linkButton} to={`/nominaciones/${e.name}`}>{e.name}</Link>
           </ListItem>
         ))}
@@ -100,7 +103,7 @@ const Menu = (props: any) => {
       <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex' }}>
           <Button onClick={toggleDrawer('left', true)}><MenuIcon style={{ color: '#f7f7f7' }} /></Button>
-          <Typography variant="h5" style={{ marginLeft: '5px', textTransform: 'capitalize', marginTop: '2px' }}>{tab}</Typography>
+          <Typography variant="h5" style={{ marginLeft: '5px', textTransform: 'capitalize', marginTop: '6px' }}>{tab}</Typography>
         </div>
         <Button onClick={logOut} style={{ marginRight: '5px', textTransform: 'capitalize', marginTop: '2px', color: 'white' }}>
           <Typography variant="h5">Log Out</Typography>

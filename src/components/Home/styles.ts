@@ -50,6 +50,21 @@ const styles = (theme: Theme) =>
                 fontSize: '0.7rem',
             },
         },
+        homeDiv: {
+            width: '60%',
+            [theme.breakpoints.down('lg')]: {
+                width: '70%',
+            },
+            [theme.breakpoints.down('md')]: {
+                width: '80%',
+            },
+            [theme.breakpoints.down('sm')]: {
+                width: '90%',
+            },
+            [theme.breakpoints.down('xs')]: {
+                width: '100%',
+            },
+        },
     });
 
 export default styles;
