@@ -79,19 +79,20 @@ const NomineeList = (props: NomineeListProps) => {
 
   return (
     <React.Fragment>
-      {nomineeText}
-      <List component="nav" className={classes.root} aria-label="mailbox folders">
-        {nominees.map((nomination: Nomination, index: number) => (
-          <React.Fragment key={nomination.id}>
-            <ListItem>
-              <ListItemText primary={toString(nomination)} />
-              <Delete style={{ marginLeft: '5px', cursor: 'pointer' }} onClick={onDelete(nomination.id)} />
-            </ListItem>
-            {index !== (nominees.length - 1) ? <Divider /> : ''}
-          </React.Fragment>
-        ))}
-
-      </List>
+      <div style={{paddingBottom: '60px'}}>
+        {nomineeText}
+        <List component="nav" className={classes.root} aria-label="mailbox folders">
+          {nominees.map((nomination: Nomination, index: number) => (
+            <React.Fragment key={nomination.id}>
+              <ListItem>
+                <ListItemText primary={toString(nomination)} />
+                <Delete style={{ marginLeft: '5px', cursor: 'pointer' }} onClick={onDelete(nomination.id)} />
+              </ListItem>
+              {index !== (nominees.length - 1) ? <Divider /> : ''}
+            </React.Fragment>
+          ))}
+        </List>
+      </div>
     </React.Fragment>
   );
 }
