@@ -130,7 +130,7 @@ const Nominaciones = (props: any) => {
         setSelectedId={setSelectedId}
       />
       <br/>
-      <div>
+      <div style={{marginRight: '10px'}}>
         <TextField value={extra} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setExtra(e.target.value)} variant="outlined" placeholder="Agrega un comentario" fullWidth />
       </div>
     </React.Fragment>
