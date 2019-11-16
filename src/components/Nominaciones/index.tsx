@@ -48,7 +48,6 @@ const Nominaciones = (props: any) => {
       .catch((err: any) => {
         console.log(err)
       });
-    
   }, [])
 
   React.useEffect(() => {
@@ -60,7 +59,6 @@ const Nominaciones = (props: any) => {
       .catch((err: any) => {
         console.log(err)
       });
-      
   }, [])
 
   React.useEffect(() => {
@@ -75,10 +73,10 @@ const Nominaciones = (props: any) => {
 
   const onNominate = (key: number, nom1?: number, nom2?: number, aux?: string) => {
     axios.post(`https://compushow.link/v1/api/nominations`,
-      nom1 !== 9999 && nom2 !== 9999 ? { categoryId: key, mainNominee: nom1, auxNominee: nom2 } : nom1 !== 9999 && nom2 === 9999 && extra === '' ? { categoryId: key, mainNominee: nom1 } : nom1 !== 9999 && nom2 === 9999 && extra !== '' ? { categoryId: key, mainNominee: nom1, extra: aux } : nom1 === 9999 && nom2 === 9999 && extra !== '' ? { categoryId: key, extra: aux } : null,
+      nom1 !== 9999 && nom2 !== 9999 && extra !== '' ? { categoryId: key, mainNominee: nom1, auxNominee: nom2, extra: extra } : nom1 !== 9999 && nom2 !== 9999 ? { categoryId: key, mainNominee: nom1, auxNominee: nom2 } : nom1 !== 9999 && nom2 === 9999 && extra === '' ? { categoryId: key, mainNominee: nom1 } : nom1 !== 9999 && nom2 === 9999 && extra !== '' ? { categoryId: key, mainNominee: nom1, extra: aux } : nom1 === 9999 && nom2 === 9999 && extra !== '' ? { categoryId: key, extra: aux } : null,
       { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
-      .then((res: any) => enqueueSnackbar('Nominación enviada', { variant: 'success' }))
-      .catch((err: any) => enqueueSnackbar('Error', { variant: 'error' }))
+      .then((res: any) => enqueueSnackbar('Nominación enviada satisfactoriamente', { variant: 'success' }))
+      .catch((err: any) => enqueueSnackbar('Ha ocurrido un error enviando la nominación, ¡revisa los datos!', { variant: 'error' }))
   }
 
   const banner = (component: any, img: any) => <div>
@@ -107,6 +105,10 @@ const Nominaciones = (props: any) => {
         selectedId={selectedId}
         setSelectedId={setSelectedId}
       />
+      <br/>
+      <div>
+        <TextField value={extra} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setExtra(e.target.value)} variant="outlined" placeholder="Agrega un comentario" fullWidth />
+      </div>
     </React.Fragment>
   )
 
@@ -132,6 +134,10 @@ const Nominaciones = (props: any) => {
           setSelectedId={setSelectedId2}
         />
       </div>
+      <br/>
+      <div>
+        <TextField value={extra} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setExtra(e.target.value)} variant="outlined" placeholder="Agrega un comentario" fullWidth />
+      </div>
     </React.Fragment>
   )
 
@@ -148,7 +154,7 @@ const Nominaciones = (props: any) => {
           setSelectedId={setSelectedId}
         />
         <div>
-          <TextField value={extra} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setExtra(e.target.value)} variant="outlined" placeholder="¿Porqué?" fullWidth />
+          <TextField value={extra} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setExtra(e.target.value)} variant="outlined" placeholder="¿Por qué?" fullWidth />
         </div>
       </div>
     </React.Fragment>
@@ -184,7 +190,6 @@ const Nominaciones = (props: any) => {
                   <div className={classes.vote1Div} style={{ marginTop: '45px' }}>
                     {voteInputs[category.type]()}
                   </div>
-                  <NomineeList users={computistas as User[]} category={category.id} {...props} />
                 </div>
                 <div style={{ width: '25%', marginTop: '25px', marginBottom: '20px' }}>
                   <Button onClick={() => {
@@ -192,6 +197,7 @@ const Nominaciones = (props: any) => {
                     console.log(selectedId)
                   }} color="secondary" fullWidth style={{ textTransform: 'capitalize', background: '#FF0000', color: 'white' }}>Nominar</Button>
                 </div>
+                <NomineeList users={computistas as User[]} category={category.id} {...props} />
               </React.Fragment>, category.pictureUrl)
           } />
       )}
