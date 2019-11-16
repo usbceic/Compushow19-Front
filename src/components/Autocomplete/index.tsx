@@ -27,6 +27,7 @@ const Autocomplete = (props: any) => {
                 <Paper style={{ width: '100%', position: 'absolute', zIndex: 9, top: '56px' }}>
                     {computistasArray.slice(0, 5).map((e: any, i: number) => e.fullName !== text ? <MenuItem key={i} onClick={() => {
                         setText(e.fullName)
+                        setComputistasArray([...props.computistas].filter(item => item.fullName.toLowerCase().includes(e.fullName.toLowerCase())))
                         setSelectedId(e.id)
                     }}>{e.fullName}</MenuItem> : null)}
                 </Paper>

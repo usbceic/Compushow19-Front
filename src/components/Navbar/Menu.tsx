@@ -4,7 +4,7 @@ import { withStyles, Typography } from "@material-ui/core";
 import styles from "./styles";
 import { connect } from "react-redux";
 import * as usuariosActions from "../../actions/usuariosActions";
-import {Category} from '../../Models/Category'
+import { Category } from '../../Models/Category'
 
 import axios from 'axios'
 
@@ -78,7 +78,7 @@ const Menu = (props: any) => {
     >
       <List>
         {(categorias as Category[]).map((e: Category, i: number) => (
-          <ListItem button key={i} className={classes.highlightItem} style={{ background: 'white' }}>
+          <ListItem button key={i} className={classes.highlightItem} style={{ background: tab === e.name ? '#f9ecb7' : 'white' }}>
             <Link className={classes.linkButton} to={`/nominaciones/${e.name}`}>{e.name}</Link>
           </ListItem>
         ))}
@@ -91,7 +91,7 @@ const Menu = (props: any) => {
       <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex' }}>
           <Button onClick={toggleDrawer('left', true)}><MenuIcon style={{ color: '#f7f7f7' }} /></Button>
-          <Typography variant="h5" style={{ marginLeft: '5px', textTransform: 'capitalize', marginTop: '2px' }}>{tab}</Typography>
+          <Typography variant="h5" style={{ marginLeft: '5px', textTransform: 'capitalize', marginTop: '6px' }}>{tab}</Typography>
         </div>
         <Button onClick={logOut} style={{ marginRight: '5px', textTransform: 'capitalize', marginTop: '2px', color: 'white' }}>
           <Typography variant="h5">Log Out</Typography>

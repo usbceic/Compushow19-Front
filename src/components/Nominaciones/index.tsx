@@ -1,29 +1,27 @@
 import React from "react";
 import styles from './styles'
-import {
-  Typography, TextField, InputAdornment, Button
-} from '@material-ui/core'
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import { Typography, TextField, Button } from '@material-ui/core'
 
 import { Route } from 'react-router'
 import { withStyles, CssBaseline } from "@material-ui/core";
 import { connect } from "react-redux";
 import * as usuariosActions from "../../actions/usuariosActions";
 
-import Autocomplete2 from '../Autocomplete'
-
-import Search from '@material-ui/icons/Search'
+import Autocomplete from '../Autocomplete'
 
 import axios from 'axios'
 import { Category } from "../../Models/Category";
 import { User } from '../../Models/User'
 import NomineeList from '../NomineeList/index'
 
+import { useSnackbar } from 'notistack'
+
 
 const bannerImage = require('../../shared/assets/Main.png')
 
 const Nominaciones = (props: any) => {
   const { classes } = props
+  const { enqueueSnackbar } = useSnackbar()
 
   const [computistas, setComputistas] = React.useState([])
   const [categorias, setCategorias] = React.useState<Category[]>([])
@@ -32,7 +30,11 @@ const Nominaciones = (props: any) => {
   const [text, setText] = React.useState('')
   const [selectedId, setSelectedId] = React.useState(9999)
 
-  console.log(selectedId)
+  const [computistasArray2, setComputistasArray2]: any = React.useState([])
+  const [text2, setText2] = React.useState('')
+  const [selectedId2, setSelectedId2] = React.useState(9999)
+
+  const [extra, setExtra] = React.useState('')
 
   React.useEffect(() => {
     axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
@@ -54,12 +56,22 @@ const Nominaciones = (props: any) => {
       })
   }, [])
 
-  const onNominate = (key: number, nom1: number, nom2?: number, aux?: string) => {
+  React.useEffect(() => {
+    setComputistasArray([])
+    setComputistasArray2([])
+    setText('')
+    setText2('')
+    setSelectedId(9999)
+    setSelectedId2(9999)
+    setExtra('')
+  }, [props.location.pathname])
+
+  const onNominate = (key: number, nom1?: number, nom2?: number, aux?: string) => {
     axios.post(`https://compushow.link/v1/api/nominations`,
-      nom2 ? { categoryId: key, mainNominee: nom1, auxNominee: nom2 } : aux ? { categoryId: key, mainNominee: nom1, extra: nom2 } : { categoryId: key, mainNominee: nom1 },
+      nom1 !== 9999 && nom2 !== 9999 ? { categoryId: key, mainNominee: nom1, auxNominee: nom2 } : nom1 !== 9999 && nom2 === 9999 && extra === '' ? { categoryId: key, mainNominee: nom1 } : nom1 !== 9999 && nom2 === 9999 && extra !== '' ? { categoryId: key, mainNominee: nom1, extra: aux } : nom1 === 9999 && nom2 === 9999 && extra !== '' ? { categoryId: key, extra: aux } : null,
       { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
-      .then(res => console.log('TODO BIEN', res))
-      .catch(err => console.log('TODO MAL', err))
+      .then((res: any) => enqueueSnackbar('Nominación enviada', { variant: 'success' }))
+      .catch((err: any) => enqueueSnackbar('Error', { variant: 'error' }))
   }
 
   const banner = (component: any, img: any) => <div>
@@ -77,28 +89,9 @@ const Nominaciones = (props: any) => {
     </div>
   </div>
 
-  const CssTextField = withStyles({
-    root: {
-      '& label.Mui-focused': {
-        color: 'lightgray',
-      },
-      '& .MuiOutlinedInput-root': {
-        '& fieldset': {
-          borderColor: 'lightgray',
-        },
-        '&:hover fieldset': {
-          borderColor: 'lightgray',
-        },
-        '&.Mui-focused fieldset': {
-          borderColor: '#FE000A',
-        },
-      },
-    },
-  })(TextField);
-
   const ToUser = () => (
     <React.Fragment>
-      <Autocomplete2
+      <Autocomplete
         computistas={computistas}
         computistasArray={computistasArray}
         setComputistasArray={setComputistasArray}
@@ -113,8 +106,24 @@ const Nominaciones = (props: any) => {
   const ToTwoUsers = () => (
     <React.Fragment>
       <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
-        <Autocomplete2 computistas={computistas} />
-        <Autocomplete2 computistas={computistas} />
+        <Autocomplete
+          computistas={computistas}
+          computistasArray={computistasArray}
+          setComputistasArray={setComputistasArray}
+          text={text}
+          setText={setText}
+          selectedId={selectedId}
+          setSelectedId={setSelectedId}
+        />
+        <Autocomplete
+          computistas={computistas}
+          computistasArray={computistasArray2}
+          setComputistasArray={setComputistasArray2}
+          text={text2}
+          setText={setText2}
+          selectedId={selectedId2}
+          setSelectedId={setSelectedId2}
+        />
       </div>
     </React.Fragment>
   )
@@ -122,15 +131,17 @@ const Nominaciones = (props: any) => {
   const ToUserWithExtra = () => (
     <React.Fragment>
       <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
-        <Autocomplete2 computistas={computistas} />
+        <Autocomplete
+          computistas={computistas}
+          computistasArray={computistasArray}
+          setComputistasArray={setComputistasArray}
+          text={text}
+          setText={setText}
+          selectedId={selectedId}
+          setSelectedId={setSelectedId}
+        />
         <div>
-          <CssTextField variant="outlined" placeholder="¿Porqué?" fullWidth InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search style={{ color: 'gray' }} />
-              </InputAdornment>
-            ),
-          }} />
+          <TextField value={extra} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setExtra(e.target.value)} variant="outlined" placeholder="¿Porqué?" fullWidth />
         </div>
       </div>
     </React.Fragment>
@@ -138,13 +149,7 @@ const Nominaciones = (props: any) => {
 
   const OnlyExtra = () => (
     <React.Fragment>
-      <CssTextField variant="outlined" placeholder="Nombre" fullWidth InputProps={{
-        startAdornment: (
-          <InputAdornment position="start">
-            <Search style={{ color: 'gray' }} />
-          </InputAdornment>
-        ),
-      }} />
+      <TextField value={extra} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setExtra(e.target.value)} variant="outlined" placeholder="Nombre" fullWidth />
     </React.Fragment>
   )
 
@@ -176,9 +181,8 @@ const Nominaciones = (props: any) => {
                 </div>
                 <div style={{ width: '25%', marginTop: '25px', marginBottom: '20px' }}>
                   <Button onClick={() => {
-                    if (selectedId !== 9999) {
-                      onNominate(category.id, selectedId)
-                    }
+                    onNominate(category.id, selectedId, selectedId2, extra)
+                    console.log(selectedId)
                   }} color="secondary" fullWidth style={{ textTransform: 'capitalize', background: '#FF0000', color: 'white' }}>Nominar</Button>
                 </div>
               </React.Fragment>, category.pictureUrl)
