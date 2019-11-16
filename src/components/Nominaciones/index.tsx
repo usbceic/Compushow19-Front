@@ -29,6 +29,16 @@ const Nominaciones = (props: any) => {
   const [computistas, setComputistas] = React.useState([])
   const [categorias, setCategorias] = React.useState<Category[]>([])
 
+  const [shouldUpdate, setShouldUpdate]: any = React.useState({} as any)
+  const setCategoryShouldUpdate = (category: number) => (val: boolean) => {
+    setShouldUpdate((prev: any) => {
+      return {
+        ...prev,
+        [category]: val
+      }
+    })
+  }
+
   const [computistasArray, setComputistasArray]: any = React.useState([])
   const [text, setText] = React.useState('')
   const [selectedId, setSelectedId] = React.useState(9999)
@@ -43,6 +53,12 @@ const Nominaciones = (props: any) => {
     const request = axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
       .then((res: any) => {
         setCategorias(res.data)
+
+        const shouldUpdateObj: any = {};
+        res.data.forEach((val: Category, idx: number) => {
+          shouldUpdateObj[val.id] = true
+        })
+        setShouldUpdate(shouldUpdateObj)
       })
       .catch(catchUnauthorized(depsCatch))
       .catch((err: any) => {
@@ -75,7 +91,12 @@ const Nominaciones = (props: any) => {
     axios.post(`https://compushow.link/v1/api/nominations`,
       nom1 !== 9999 && nom2 !== 9999 && extra !== '' ? { categoryId: key, mainNominee: nom1, auxNominee: nom2, extra: extra } : nom1 !== 9999 && nom2 !== 9999 ? { categoryId: key, mainNominee: nom1, auxNominee: nom2 } : nom1 !== 9999 && nom2 === 9999 && extra === '' ? { categoryId: key, mainNominee: nom1 } : nom1 !== 9999 && nom2 === 9999 && extra !== '' ? { categoryId: key, mainNominee: nom1, extra: aux } : nom1 === 9999 && nom2 === 9999 && extra !== '' ? { categoryId: key, extra: aux } : null,
       { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
-      .then((res: any) => enqueueSnackbar('Nominación enviada satisfactoriamente', { variant: 'success' }))
+    
+    
+      .then((res: any) => {
+        enqueueSnackbar('Nominación enviada satisfactoriamente', { variant: 'success' })
+        setCategoryShouldUpdate(key)(true)
+      })
       .catch((err: any) => enqueueSnackbar('Ha ocurrido un error enviando la nominación, ¡revisa los datos!', { variant: 'error' }))
   }
 
@@ -176,7 +197,7 @@ const Nominaciones = (props: any) => {
   return (
     <React.Fragment>
       <CssBaseline />
-      {(categorias as Category[]).map((category) =>
+      {(categorias as Category[]).map((category: Category) =>
         <Route
           key={category.id}
           path={`${props.match.path}/${category.name}`}
@@ -191,13 +212,19 @@ const Nominaciones = (props: any) => {
                     {voteInputs[category.type]()}
                   </div>
                 </div>
-                <div style={{ width: '25%', marginTop: '25px', marginBottom: '20px' }}>
+                <div style={{ width: '25%', marginTop: '25px', marginBottom: '20px', position: 'relative' }}>
                   <Button onClick={() => {
                     onNominate(category.id, selectedId, selectedId2, extra)
                     console.log(selectedId)
                   }} color="secondary" fullWidth style={{ textTransform: 'capitalize', background: '#FF0000', color: 'white' }}>Nominar</Button>
                 </div>
-                <NomineeList users={computistas as User[]} category={category.id} {...props} />
+                <NomineeList 
+                    users={computistas as User[]} 
+                    category={category.id} 
+                    shouldUpdate={(shouldUpdate as any)[category.id]} 
+                    setShouldUpdate={setCategoryShouldUpdate(category.id)} 
+                    {...props} 
+                  />
               </React.Fragment>, category.pictureUrl)
           } />
       )}
