@@ -18,7 +18,7 @@ const styles = (theme: Theme) =>
             },
         },
         h4: {
-            fontWeight: 600,
+            fontFamily: 'Hamster',
             [theme.breakpoints.down('sm')]: {
                 fontSize: '1.5rem',
             },
