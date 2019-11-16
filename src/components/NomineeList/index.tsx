@@ -13,6 +13,7 @@ import Delete from '@material-ui/icons/Delete'
 import axios from 'axios'
 import { User } from "../../Models/User";
 import catchUnauthorized from "../../utils/catchUnauthorized";
+import { Nomination } from "../../Models/Nomination";
 
 export interface NomineeListProps {
     classes: any
@@ -20,6 +21,8 @@ export interface NomineeListProps {
     users: User[]
     user: any
     updateToken: any
+    shouldUpdate: boolean
+    setShouldUpdate: (val: boolean) => any
 }
 
 const NomineeList = (props: NomineeListProps) => {
@@ -27,42 +30,56 @@ const NomineeList = (props: NomineeListProps) => {
   const { enqueueSnackbar } = useSnackbar()
   const history = useHistory()
   const depsCatch = {enqueueSnackbar, history, updateToken: props.updateToken}
-
   const [nominees, setNominees] = React.useState([])
+  const [enter, setEnter] = React.useState(true)
 
-  console.log(nominees)
-
-  // TODO: Hacer el delete estaba cansado
-  const onDelete = (id: number) => {
-    axios.delete(`https://compushow.link/v1/api/nominations/byCategory/${props.category}/byUser`, { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
-  }
-
-  React.useEffect(() => {
-    const request = axios.get(`https://compushow.link/v1/api/nominations/byCategory/${props.category}/byUser`,
-        { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
-      .then((res: any) => {
-        const auxNom = res.data.map((e: any, i: number) => e.mainNominee)
-        setNominees(auxNom)
+  const onDelete = (id: number) => () => {
+    axios.delete(`https://compushow.link/v1/api/nominations/${id}`, 
+      { 
+        params: {}, 
+        headers: { 
+          'Authorization': `Bearer ${props.user.token}` 
+        } 
+      })
+      .then((_: any) => {
+        props.setShouldUpdate(true)
+        enqueueSnackbar('Nominación eliminada', { variant: 'success' })
       })
       .catch(catchUnauthorized(depsCatch))
       .catch((err: any) => {
         console.log(err)
       });
-    
-  }, [])
+  }
 
-
+  React.useEffect(() => {
+    if (enter || props.shouldUpdate) {
+      axios.get(`https://compushow.link/v1/api/nominations/byCategory/${props.category}/byUser`,
+          { 
+            params: {}, 
+            headers: { 
+              'Authorization': `Bearer ${props.user.token}` 
+            } 
+          })
+        .then((res: any) => {
+          setNominees(res.data)
+        })
+        .catch(catchUnauthorized(depsCatch))
+        .catch((err: any) => {
+          console.log(err)
+        });
+      props.setShouldUpdate(false)
+      setEnter(false)
+    }
+  }, [props.shouldUpdate])
 
   return (
     <React.Fragment>
       <List component="nav" className={classes.root} aria-label="mailbox folders">
-        {nominees.map((nominee: any, index: number) => (
-          <React.Fragment key={nominee.id}>
+        {nominees.map((nomination: Nomination, index: number) => (
+          <React.Fragment key={nomination.id}>
             <ListItem>
-              <ListItemText primary={nominee.fullName} />
-              <Delete style={{ marginLeft: '5px', cursor: 'pointer' }} onClick={() => {
-                onDelete(nominee.id)
-              }} />
+              <ListItemText primary={toString(nomination)} />
+              <Delete style={{ marginLeft: '5px', cursor: 'pointer' }} onClick={onDelete(nomination.id)} />
             </ListItem>
             {index !== (nominees.length - 1) ? <Divider /> : ''}
           </React.Fragment>
@@ -71,6 +88,20 @@ const NomineeList = (props: NomineeListProps) => {
       </List>
     </React.Fragment>
   );
+}
+
+const toString = (nom: Nomination) => {
+  let tokens = [];
+  if (nom.mainNominee) {
+    tokens.push(nom.mainNominee.fullName);
+  }
+  if (nom.auxNominee) {
+    tokens.push(nom.auxNominee.fullName);
+  }
+  if (nom.extra) {
+    tokens.push(nom.extra);
+  }
+  return tokens.join(", ");
 }
 
 const mapStateToProps = (reducers: any) => {
