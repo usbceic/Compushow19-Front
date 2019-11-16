@@ -30,9 +30,9 @@ const SignIn = (props: any) => {
       .then((res: any) => {
         if (res.status === 200) {
           props.dispatchUser({ profile: res.data, token: response.tokenId })
+          if (response.tokenId !== props.user.token) props.updateToken(response.tokenId)
           enqueueSnackbar('Bienvenido al CompuShow 2019', { variant: 'success' })
           console.log(response)
-          localStorage.setItem('google_token', response.tokenId)
           return props.history.push('/home')
         }
       })

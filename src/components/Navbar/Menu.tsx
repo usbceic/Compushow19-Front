@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import { withStyles, Typography } from "@material-ui/core";
 import styles from "./styles";
 import { connect } from "react-redux";
+import { useSnackbar } from 'notistack';
+import { useHistory } from "react-router-dom";
 import * as usuariosActions from "../../actions/usuariosActions";
-import { Category } from '../../Models/Category'
+import {Category} from '../../Models/Category'
+import catchUnauthorized from '../../utils/catchUnauthorized';
 
 import axios from 'axios'
 
@@ -18,7 +21,11 @@ import MenuIcon from '@material-ui/icons/Menu'
 const Menu = (props: any) => {
   const { classes } = props
 
-  const google_token = localStorage.getItem('google_token')
+  const google_token = localStorage.getItem('google_token');
+  if (google_token !== props.user.token) props.updateToken(google_token);
+  
+  const { enqueueSnackbar } = useSnackbar()
+  const history = useHistory()
 
   if (google_token) {
     props.user.token = google_token;
@@ -36,13 +43,19 @@ const Menu = (props: any) => {
   const [categorias, setCategorias] = React.useState([])
 
   React.useEffect(() => {
-    axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${google_token}` } })
-      .then((res: any) => {
-        setCategorias(res.data)
-      })
-      .catch((err: any) => {
-        console.log(err)
-      })
+    const request = 
+      axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${google_token}` } })
+        .then((res: any) => {
+          setCategorias(res.data)
+        })
+        .catch(catchUnauthorized({
+          enqueueSnackbar, 
+          history, 
+          updateToken: props.updateToken})
+        )
+        .catch((err: any) => {
+          console.log(err)
+        });
   }, [])
 
   React.useEffect(() => {
@@ -65,8 +78,7 @@ const Menu = (props: any) => {
   };
 
   const logOut = () => {
-    localStorage.removeItem('google_token')
-    return window.location.reload();
+    props.updateToken("");
   }
 
   const sideList = (side: DrawerSide) => (

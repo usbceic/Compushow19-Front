@@ -9,19 +9,22 @@ import * as usuariosActions from "../../actions/usuariosActions";
 
 import Autocomplete from '../Autocomplete'
 
+import Search from '@material-ui/icons/Search'
+import { useSnackbar } from 'notistack'
+import { useHistory } from "react-router-dom";
 import axios from 'axios'
 import { Category } from "../../Models/Category";
 import { User } from '../../Models/User'
 import NomineeList from '../NomineeList/index'
-
-import { useSnackbar } from 'notistack'
-
+import catchUnauthorized from '../../utils/catchUnauthorized';
 
 const bannerImage = require('../../shared/assets/Main.png')
 
 const Nominaciones = (props: any) => {
   const { classes } = props
-  const { enqueueSnackbar } = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar();
+  const history = useHistory();
+  const depsCatch = {enqueueSnackbar, history, updateToken: props.updateToken};
 
   const [computistas, setComputistas] = React.useState([])
   const [categorias, setCategorias] = React.useState<Category[]>([])
@@ -37,23 +40,27 @@ const Nominaciones = (props: any) => {
   const [extra, setExtra] = React.useState('')
 
   React.useEffect(() => {
-    axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
+    const request = axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
       .then((res: any) => {
         setCategorias(res.data)
       })
+      .catch(catchUnauthorized(depsCatch))
       .catch((err: any) => {
         console.log(err)
-      })
+      });
+    
   }, [])
 
   React.useEffect(() => {
-    axios.get('https://compushow.link/v1/api/users/all', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
+    const request = axios.get('https://compushow.link/v1/api/users/all', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
       .then((res: any) => {
         setComputistas(res.data)
       })
+      .catch(catchUnauthorized(depsCatch))
       .catch((err: any) => {
         console.log(err)
-      })
+      });
+      
   }, [])
 
   React.useEffect(() => {
