@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './styles'
-import { Divider, List, ListItem, ListItemText } from '@material-ui/core'
+import { Divider, List, ListItem, ListItemText, Typography } from '@material-ui/core'
 
 import { withStyles } from "@material-ui/core";
 import { connect } from "react-redux";
@@ -16,35 +16,30 @@ import catchUnauthorized from "../../utils/catchUnauthorized";
 import { Nomination } from "../../Models/Nomination";
 
 export interface NomineeListProps {
-    classes: any
-    category: number
-    users: User[]
-    user: any
-    updateToken: any
-    shouldUpdate: boolean
-    setShouldUpdate: (val: boolean) => any
+  classes: any
+  category: number
+  users: User[]
+  user: any
+  updateToken: any
+  shouldUpdate: boolean
+  setShouldUpdate: (val: boolean) => any
 }
 
 const NomineeList = (props: NomineeListProps) => {
   const { classes } = props
   const { enqueueSnackbar } = useSnackbar()
   const history = useHistory()
-  const depsCatch = {
-    enqueueSnackbar, 
-    history, 
-    updateToken: props.updateToken,
-    token: props.user.token
-  }
+  const depsCatch = { enqueueSnackbar, history, updateToken: props.updateToken }
   const [nominees, setNominees] = React.useState([])
   const [enter, setEnter] = React.useState(true)
 
   const onDelete = (id: number) => () => {
-    axios.delete(`https://compushow.link/v1/api/nominations/${id}`, 
-      { 
-        params: {}, 
-        headers: { 
-          'Authorization': `Bearer ${props.user.token}` 
-        } 
+    axios.delete(`https://compushow.link/v1/api/nominations/${id}`,
+      {
+        params: {},
+        headers: {
+          'Authorization': `Bearer ${props.user.token}`
+        }
       })
       .then((_: any) => {
         props.setShouldUpdate(true)
@@ -58,18 +53,18 @@ const NomineeList = (props: NomineeListProps) => {
 
   let nomineeText;
   if (nominees.length > 0) {
-    nomineeText = <h1>Has nominado a</h1>
+    nomineeText = <Typography variant="h5" className={classes.h5}>Has nominado a</Typography>
   }
 
   React.useEffect(() => {
     if (enter || props.shouldUpdate) {
       axios.get(`https://compushow.link/v1/api/nominations/byCategory/${props.category}/byUser`,
-          { 
-            params: {}, 
-            headers: { 
-              'Authorization': `Bearer ${props.user.token}` 
-            } 
-          })
+        {
+          params: {},
+          headers: {
+            'Authorization': `Bearer ${props.user.token}`
+          }
+        })
         .then((res: any) => {
           setNominees(res.data)
         })
@@ -84,19 +79,20 @@ const NomineeList = (props: NomineeListProps) => {
 
   return (
     <React.Fragment>
-      {nomineeText}
-      <List component="nav" className={classes.root} aria-label="mailbox folders">
-        {nominees.map((nomination: Nomination, index: number) => (
-          <React.Fragment key={nomination.id}>
-            <ListItem>
-              <ListItemText primary={toString(nomination)} />
-              <Delete style={{ marginLeft: '5px', cursor: 'pointer' }} onClick={onDelete(nomination.id)} />
-            </ListItem>
-            {index !== (nominees.length - 1) ? <Divider /> : ''}
-          </React.Fragment>
-        ))}
-
-      </List>
+      <div style={{ marginBottom: '60px', height: 'auto' }}>
+        {nomineeText}
+        <List component="nav" className={classes.root} aria-label="mailbox folders">
+          {nominees.map((nomination: Nomination, index: number) => (
+            <React.Fragment key={nomination.id}>
+              <ListItem>
+                <ListItemText primary={toString(nomination)} />
+                <Delete style={{ marginLeft: '5px', cursor: 'pointer' }} onClick={onDelete(nomination.id)} />
+              </ListItem>
+              {index !== (nominees.length - 1) ? <Divider /> : ''}
+            </React.Fragment>
+          ))}
+        </List>
+      </div>
     </React.Fragment>
   );
 }

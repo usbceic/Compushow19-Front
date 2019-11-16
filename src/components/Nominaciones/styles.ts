@@ -54,24 +54,24 @@ const styles = (theme: Theme) =>
             },
         },
         bannerAvatar: {
-            width: '216px',
-            height: '216px',
+            width: '190px',
+            height: '190px',
             zIndex: 6,
             [theme.breakpoints.down('lg')]: {
-                width: '300px',
-                height: '300px',
+                width: '190px',
+                height: '190px',
             },
             [theme.breakpoints.down('md')]: {
-                width: '150px',
-                height: '150px',
+                width: '160px',
+                height: '160px',
             },
             [theme.breakpoints.down('sm')]: {
-                width: '250px',
-                height: '250px',
+                width: '140px',
+                height: '140px',
             },
             [theme.breakpoints.down('xs')]: {
-                width: '200px',
-                height: '200px',
+                width: '100px',
+                height: '100px',
             },
         },
         vote1Div: {

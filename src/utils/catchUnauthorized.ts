@@ -2,7 +2,6 @@ interface Dependencies {
     enqueueSnackbar: any;
     history: any;
     updateToken: (token: string) => any;
-    token?: string;
 }
 
 /**
