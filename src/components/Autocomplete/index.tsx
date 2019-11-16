@@ -4,7 +4,7 @@ import styles from "./styles";
 import Search from '@material-ui/icons/Search'
 
 const Autocomplete = (props: any) => {
-    const { computistasArray, setComputistasArray, text, setText, setSelectedId } = props
+    const { computistasArray, setComputistasArray, text, setText, setSelectedId, classes } = props
 
     React.useEffect(() => {
         if (text === '') {
@@ -24,8 +24,8 @@ const Autocomplete = (props: any) => {
     return (
         <React.Fragment>
             <div style={{ position: 'relative', marginRight: '10px' }}>
-                <Paper style={{ width: '100%', position: 'absolute', zIndex: 9, top: '56px' }}>
-                    {computistasArray.slice(0, 5).map((e: any, i: number) => e.fullName !== text ? <MenuItem key={i} onClick={() => {
+                <Paper className={classes.container} style={{ width: '100%', position: 'absolute', zIndex: 1, top: '56px' }}>
+                    {computistasArray.slice(0, 5).map((e: any, i: number) => e.fullName !== text ? <MenuItem className={classes.mobile} key={i} onClick={() => {
                         setText(e.fullName)
                         setComputistasArray([...props.computistas].filter(item => item.fullName.toLowerCase().includes(e.fullName.toLowerCase())))
                         setSelectedId(e.id)

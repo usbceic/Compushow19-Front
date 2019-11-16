@@ -211,7 +211,7 @@ const Nominaciones = (props: any) => {
                     {...props} 
                   />
                 </div>
-                <div style={{ width: '25%', marginTop: '25px', marginBottom: '20px' }}>
+                <div style={{ width: '25%', marginTop: '25px', marginBottom: '20px', position: 'relative' }}>
                   <Button onClick={() => {
                     onNominate(category.id, selectedId, selectedId2, extra)
                     console.log(selectedId)

@@ -2,6 +2,18 @@ import { createStyles, Theme } from "@material-ui/core";
 
 const styles = (theme: Theme) =>
     createStyles({
+        container: {
+            [theme.breakpoints.down('sm')]: {
+                marginBottom: '60px',
+            },
+        },
+        mobile: {
+            whiteSpace: 'initial',
+            lineHeight: '1.5',
+            [theme.breakpoints.down('sm')]: {
+                paddingTop: '8px',
+            },
+        },
         h1: {
             [theme.breakpoints.down('sm')]: {
                 fontSize: '2.5rem',
