@@ -26,8 +26,13 @@ const Nominaciones = (props: any) => {
   const { classes } = props
 
   const [computistas, setComputistas] = React.useState([])
-
   const [categorias, setCategorias] = React.useState<Category[]>([])
+
+  const [computistasArray, setComputistasArray]: any = React.useState([])
+  const [text, setText] = React.useState('')
+  const [selectedId, setSelectedId] = React.useState(9999)
+
+  console.log(selectedId)
 
   React.useEffect(() => {
     axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
@@ -49,6 +54,14 @@ const Nominaciones = (props: any) => {
       })
   }, [])
 
+  const onNominate = (key: number, nom1: number, nom2?: number, aux?: string) => {
+    axios.post(`https://compushow.link/v1/api/nominations`,
+      nom2 ? { categoryId: key, mainNominee: nom1, auxNominee: nom2 } : aux ? { categoryId: key, mainNominee: nom1, extra: nom2 } : { categoryId: key, mainNominee: nom1 },
+      { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
+      .then(res => console.log('TODO BIEN', res))
+      .catch(err => console.log('TODO MAL', err))
+  }
+
   const banner = (component: any, img: any) => <div>
     <div style={{
       height: '45vh', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 5, backgroundImage: `url(${bannerImage})`, backgroundSize: 'cover',
@@ -60,9 +73,6 @@ const Nominaciones = (props: any) => {
     <div style={{ height: '55vh', display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
       <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         {component}
-        <div style={{ width: '25%', marginTop: '60px' }}>
-          <Button color="secondary" fullWidth style={{ textTransform: 'capitalize', background: '#FF0000', color: 'white' }}>Nominar</Button>
-        </div>
       </div>
     </div>
   </div>
@@ -88,21 +98,15 @@ const Nominaciones = (props: any) => {
 
   const ToUser = () => (
     <React.Fragment>
-      <Autocomplete
-        style={{ width: '100%' }}
-        options={computistas.map((student: any) => student.fullName)}
-        renderInput={params => (
-          <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
-            <CssTextField {...params} variant="outlined" placeholder="Nombre1" fullWidth InputProps={{
-              ...params.InputProps,
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Search style={{ color: 'gray' }} />
-                </InputAdornment>
-              ),
-            }} />
-          </div>
-        )} />
+      <Autocomplete2
+        computistas={computistas}
+        computistasArray={computistasArray}
+        setComputistasArray={setComputistasArray}
+        text={text}
+        setText={setText}
+        selectedId={selectedId}
+        setSelectedId={setSelectedId}
+      />
     </React.Fragment>
   )
 
@@ -193,7 +197,7 @@ const Nominaciones = (props: any) => {
           </div>
         )}
       /> */}
-      <Autocomplete2 computistas={computistas} />
+      <Autocomplete2 computistas={computistas} computistasArray={computistasArray} setComputistasArray={setComputistasArray} text={text} setText={setText} selectedId={selectedId} setSelectedId={setSelectedId} />
     </React.Fragment>
   )
 
@@ -222,6 +226,13 @@ const Nominaciones = (props: any) => {
                     {voteInputs[category.type]()}
                   </div>
                   <NomineeList users={computistas as User[]} category={category.id} {...props} />
+                </div>
+                <div style={{ width: '25%', marginTop: '25px', marginBottom: '20px' }}>
+                  <Button onClick={() => {
+                    if (selectedId !== 9999) {
+                      onNominate(category.id, selectedId)
+                    }
+                  }} color="secondary" fullWidth style={{ textTransform: 'capitalize', background: '#FF0000', color: 'white' }}>Nominar</Button>
                 </div>
               </React.Fragment>, category.pictureUrl)
           } />
