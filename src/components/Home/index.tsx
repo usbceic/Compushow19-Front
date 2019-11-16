@@ -22,7 +22,7 @@ const Home = (props: any) => {
     <React.Fragment>
       <CssBaseline />
       <div style={{
-        width: '100vw', height: '100vh', backgroundImage: `url(${homeImage})`, backgroundSize: '100% 100%',
+        width: '100vw', height: '100vh', backgroundImage: `url(https://compushow.s3.us-east-2.amazonaws.com/backgrounds/Home.png)`, backgroundSize: '100% 100%',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
       }}>

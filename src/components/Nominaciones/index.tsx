@@ -105,7 +105,7 @@ const Nominaciones = (props: any) => {
 
   const banner = (component: any, img: any) => <div style={{ height: 'calc(100vh - 60px)', overflow: 'auto' }}>
     <div style={{
-      height: '35vh', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 5, backgroundImage: `url(${bannerImage})`, backgroundSize: 'cover',
+      height: '35vh', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 5, backgroundImage: `url(https://compushow.s3.us-east-2.amazonaws.com/backgrounds/Main.png)`, backgroundSize: 'cover',
       backgroundPosition: 'top center',
       backgroundRepeat: 'no-repeat'
     }}>
