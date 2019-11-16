@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './styles'
-import { Divider, List, ListItem, ListItemText } from '@material-ui/core'
+import { Divider, List, ListItem, ListItemText, Typography } from '@material-ui/core'
 
 import { withStyles } from "@material-ui/core";
 import { connect } from "react-redux";
@@ -53,7 +53,7 @@ const NomineeList = (props: NomineeListProps) => {
 
   let nomineeText;
   if (nominees.length > 0) {
-    nomineeText = <h1>Has nominado a</h1>
+    nomineeText = <Typography variant="h5" className={classes.h5}>Has nominado a</Typography>
   }
 
   React.useEffect(() => {
