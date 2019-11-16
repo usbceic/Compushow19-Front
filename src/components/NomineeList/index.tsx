@@ -74,6 +74,7 @@ const NomineeList = (props: NomineeListProps) => {
 
   return (
     <React.Fragment>
+      <h1>Has nominado a</h1>
       <List component="nav" className={classes.root} aria-label="mailbox folders">
         {nominees.map((nomination: Nomination, index: number) => (
           <React.Fragment key={nomination.id}>
