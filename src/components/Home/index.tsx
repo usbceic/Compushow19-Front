@@ -33,12 +33,12 @@ const Home = (props: any) => {
             <div style={{ width: '100%', textAlign: 'center' }}>
               <img src={`${compushowLogo}`} alt="" className={classes.compushowLogo} />
             </div>
-            <Typography variant="h4" style={{ width: '100%' }} align="center" className={classes.h4}>La época de las motocicletas, las chaquetas de cuero, el gel en el cabello y el baile</Typography>
+            <Typography variant="h4" style={{ width: '100%' }} align="center" className={classes.h4}>Es la época de las motocicletas, las chaquetas de cuero, el gel en el cabello y el baile por doquier</Typography>
             <br />
-            <Typography variant="h4" style={{ width: '100%' }} align="center" className={classes.h4}>Necesitamos de tu ayuda para que nos digas quienes son los prospectos a ser los protagonistas de nuestro magno evento</Typography>
+            <Typography variant="h4" style={{ width: '100%' }} align="center" className={classes.h4}>¡Necesitamos de tu ayuda para conocer quiénes serán los protagonistas de nuestro magno evento!</Typography>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Link style={{ textDecoration: 'none' }} to="/nominaciones">
-                <Button variant="contained" style={{ color: 'white', textTransform: 'capitalize', background: '#FF0000', width: '300px', height: '40px', marginTop: '60px' }}>Ir A Nominar</Button>
+                <Button variant="contained" style={{ color: 'white', textTransform: 'capitalize', background: '#FF0000', width: '300px', height: '40px', marginTop: '60px' }}>Ver Categorías</Button>
               </Link>
             </div>
           </div>
