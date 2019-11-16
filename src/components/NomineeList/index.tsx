@@ -16,30 +16,30 @@ import catchUnauthorized from "../../utils/catchUnauthorized";
 import { Nomination } from "../../Models/Nomination";
 
 export interface NomineeListProps {
-    classes: any
-    category: number
-    users: User[]
-    user: any
-    updateToken: any
-    shouldUpdate: boolean
-    setShouldUpdate: (val: boolean) => any
+  classes: any
+  category: number
+  users: User[]
+  user: any
+  updateToken: any
+  shouldUpdate: boolean
+  setShouldUpdate: (val: boolean) => any
 }
 
 const NomineeList = (props: NomineeListProps) => {
   const { classes } = props
   const { enqueueSnackbar } = useSnackbar()
   const history = useHistory()
-  const depsCatch = {enqueueSnackbar, history, updateToken: props.updateToken}
+  const depsCatch = { enqueueSnackbar, history, updateToken: props.updateToken }
   const [nominees, setNominees] = React.useState([])
   const [enter, setEnter] = React.useState(true)
 
   const onDelete = (id: number) => () => {
-    axios.delete(`https://compushow.link/v1/api/nominations/${id}`, 
-      { 
-        params: {}, 
-        headers: { 
-          'Authorization': `Bearer ${props.user.token}` 
-        } 
+    axios.delete(`https://compushow.link/v1/api/nominations/${id}`,
+      {
+        params: {},
+        headers: {
+          'Authorization': `Bearer ${props.user.token}`
+        }
       })
       .then((_: any) => {
         props.setShouldUpdate(true)
@@ -59,12 +59,12 @@ const NomineeList = (props: NomineeListProps) => {
   React.useEffect(() => {
     if (enter || props.shouldUpdate) {
       axios.get(`https://compushow.link/v1/api/nominations/byCategory/${props.category}/byUser`,
-          { 
-            params: {}, 
-            headers: { 
-              'Authorization': `Bearer ${props.user.token}` 
-            } 
-          })
+        {
+          params: {},
+          headers: {
+            'Authorization': `Bearer ${props.user.token}`
+          }
+        })
         .then((res: any) => {
           setNominees(res.data)
         })
@@ -79,7 +79,7 @@ const NomineeList = (props: NomineeListProps) => {
 
   return (
     <React.Fragment>
-      <div style={{paddingBottom: '60px'}}>
+      <div style={{ marginBottom: '60px', height: 'auto' }}>
         {nomineeText}
         <List component="nav" className={classes.root} aria-label="mailbox folders">
           {nominees.map((nomination: Nomination, index: number) => (

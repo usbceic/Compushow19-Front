@@ -28,7 +28,7 @@ const Home = (props: any) => {
       }}>
         <div style={{ height: '70vh', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
           <div className={classes.homeDiv}>
-            <Typography variant="h4" style={{ width: '100%' }} align="center" className={classes.h4}>Computista, bienvenido al</Typography>
+            <Typography variant="h3" style={{ width: '100%' }} align="center" className={classes.h3}>Computista, bienvenido al</Typography>
             <br />
             <div style={{ width: '100%', textAlign: 'center' }}>
               <img src={`${compushowLogo}`} alt="" className={classes.compushowLogo} />
@@ -36,7 +36,7 @@ const Home = (props: any) => {
             <Typography variant="h4" style={{ width: '100%' }} align="center" className={classes.h4}>Es la época de las motocicletas, las chaquetas de cuero, el gel en el cabello y el baile por doquier</Typography>
             <br />
             <Typography variant="h4" style={{ width: '100%' }} align="center" className={classes.h4}>¡Necesitamos de tu ayuda para conocer quiénes serán los protagonistas de nuestro magno evento!</Typography>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', height: '45px', justifyContent: 'center' }}>
               <Link style={{ textDecoration: 'none' }} to="/nominaciones">
                 <Button variant="contained" style={{ color: 'white', textTransform: 'capitalize', background: '#FF0000', width: '300px', height: '40px', marginTop: '60px' }}>Ver Categorías</Button>
               </Link>

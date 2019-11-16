@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { useSnackbar } from 'notistack';
 import { useHistory } from "react-router-dom";
 import * as usuariosActions from "../../actions/usuariosActions";
-import {Category} from '../../Models/Category'
+import { Category } from '../../Models/Category'
 import catchUnauthorized from '../../utils/catchUnauthorized';
 
 import axios from 'axios'
@@ -23,7 +23,7 @@ const Menu = (props: any) => {
 
   const google_token = localStorage.getItem('google_token');
   if (google_token !== props.user.token) props.updateToken(google_token);
-  
+
   const { enqueueSnackbar } = useSnackbar()
   const history = useHistory()
 
@@ -43,15 +43,16 @@ const Menu = (props: any) => {
   const [categorias, setCategorias] = React.useState([])
 
   React.useEffect(() => {
-    const request = 
+    const request =
       axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${google_token}` } })
         .then((res: any) => {
           setCategorias(res.data)
         })
         .catch(catchUnauthorized({
-          enqueueSnackbar, 
-          history, 
-          updateToken: props.updateToken})
+          enqueueSnackbar,
+          history,
+          updateToken: props.updateToken
+        })
         )
         .catch((err: any) => {
           console.log(err)
@@ -103,10 +104,10 @@ const Menu = (props: any) => {
       <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex' }}>
           <Button onClick={toggleDrawer('left', true)}><MenuIcon style={{ color: '#f7f7f7' }} /></Button>
-          <Typography variant="h5" style={{ marginLeft: '5px', textTransform: 'capitalize', marginTop: '6px' }}>{tab}</Typography>
+          <Typography variant="h6" className={classes.h6} style={{ marginLeft: '5px', textTransform: 'capitalize', marginTop: '6px' }}>{tab}</Typography>
         </div>
         <Button onClick={logOut} style={{ marginRight: '5px', textTransform: 'capitalize', marginTop: '2px', color: 'white' }}>
-          <Typography variant="h5">Log Out</Typography>
+          <Typography variant="h6" className={classes.h6}>Log Out</Typography>
         </Button>
         <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
           {sideList('left')}

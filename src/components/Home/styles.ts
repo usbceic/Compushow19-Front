@@ -3,16 +3,19 @@ import { createStyles, Theme } from "@material-ui/core";
 const styles = (theme: Theme) =>
     createStyles({
         h1: {
+            fontFamily: 'Hamster',
             [theme.breakpoints.down('sm')]: {
                 fontSize: '2.5rem',
             },
         },
         h2: {
+            fontFamily: 'Hamster',
             [theme.breakpoints.down('sm')]: {
                 fontSize: '2.2rem',
             },
         },
         h3: {
+            fontFamily: 'Hamster',
             [theme.breakpoints.down('sm')]: {
                 fontSize: '1.8rem',
             },
@@ -24,16 +27,20 @@ const styles = (theme: Theme) =>
             },
         },
         h5: {
+            fontFamily: 'Hamster',
             [theme.breakpoints.down('sm')]: {
                 fontSize: '1.2rem',
+                padding: '1% 5% 0',
             },
         },
         h6: {
+            fontFamily: 'Hamster',
             [theme.breakpoints.down('sm')]: {
                 fontSize: '1rem',
             },
         },
         body1: {
+            fontFamily: 'Hamster',
             [theme.breakpoints.down('sm')]: {
                 fontSize: '0.85rem',
             },
@@ -52,6 +59,11 @@ const styles = (theme: Theme) =>
         },
         homeDiv: {
             width: '60%',
+            marginTop: '40px',
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
             [theme.breakpoints.down('lg')]: {
                 width: '70%',
             },
