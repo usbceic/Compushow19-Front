@@ -22,7 +22,7 @@ const Home = (props: any) => {
     <React.Fragment>
       <CssBaseline />
       <div style={{
-        width: '100vw', height: '100vh', backgroundImage: `url(https://compushow.s3.us-east-2.amazonaws.com/backgrounds/Home.png)`, backgroundSize: '100% 100%',
+        width: '100vw', height: '100vh', paddingTop: '30px', backgroundImage: `url(https://compushow.s3.us-east-2.amazonaws.com/backgrounds/Home.png)`, backgroundSize: '100% 100%',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
       }}>
@@ -30,7 +30,7 @@ const Home = (props: any) => {
           <div className={classes.homeDiv}>
             <Typography variant="h3" style={{ width: '100%' }} align="center" className={classes.h3}>Computista, bienvenido al</Typography>
             <br />
-            <div style={{ width: '100%', textAlign: 'center' }}>
+            <div style={{ width: '100%', textAlign: 'center', marginTop: '15px', marginBottom: '15px' }}>
               <img src={`${compushowLogo}`} alt="" className={classes.compushowLogo} />
             </div>
             <Typography variant="h4" style={{ width: '100%' }} align="center" className={classes.h4}>Es la época de las motocicletas, las chaquetas de cuero, el gel en el cabello y el baile por doquier</Typography>

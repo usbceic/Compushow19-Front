@@ -53,9 +53,19 @@ const styles = (theme: Theme) =>
         compushowLogo: {
             maxWidth: '200px',
             maxHeight: '200px',
-            [theme.breakpoints.down('sm')]: {
-                fontSize: '0.7rem',
+            [theme.breakpoints.down('md')]: {
+                maxWidth: '170px',
+                maxHeight: '170px',
             },
+            [theme.breakpoints.down('sm')]: {
+                maxWidth: '150px',
+                maxHeight: '150px',
+            },
+            [theme.breakpoints.down('xs')]: {
+                maxWidth: '130px',
+                maxHeight: '130px',
+            },
+
         },
         homeDiv: {
             width: '60%',
