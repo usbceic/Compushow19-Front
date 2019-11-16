@@ -51,6 +51,11 @@ const NomineeList = (props: NomineeListProps) => {
       });
   }
 
+  let nomineeText;
+  if (nominees.length > 0) {
+    nomineeText = <h1>Has nominado a</h1>
+  }
+
   React.useEffect(() => {
     if (enter || props.shouldUpdate) {
       axios.get(`https://compushow.link/v1/api/nominations/byCategory/${props.category}/byUser`,
@@ -74,7 +79,7 @@ const NomineeList = (props: NomineeListProps) => {
 
   return (
     <React.Fragment>
-      <h1>Has nominado a</h1>
+      {nomineeText}
       <List component="nav" className={classes.root} aria-label="mailbox folders">
         {nominees.map((nomination: Nomination, index: number) => (
           <React.Fragment key={nomination.id}>

@@ -94,7 +94,10 @@ const Nominaciones = (props: any) => {
     
     
       .then((res: any) => {
-        enqueueSnackbar('Nominación enviada satisfactoriamente', { variant: 'success' })
+        enqueueSnackbar('Nominación enviada', { variant: 'success' })
+        setText('')
+        setText2('')
+        setExtra('')
         setCategoryShouldUpdate(key)(true)
       })
       .catch((err: any) => enqueueSnackbar('Ha ocurrido un error enviando la nominación, ¡revisa los datos!', { variant: 'error' }))
