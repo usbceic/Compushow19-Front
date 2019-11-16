@@ -19,7 +19,7 @@ const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 ReactDOM.render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
-      <SnackbarProvider maxSnack={3}>
+      <SnackbarProvider maxSnack={2} preventDuplicate autoHideDuration={2000}>
         <App />
       </SnackbarProvider>
     </ThemeProvider>
