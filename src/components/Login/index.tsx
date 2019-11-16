@@ -43,7 +43,7 @@ const SignIn = (props: any) => {
   }
 
   const onSignUpFailure = (response: any) => {
-    enqueueSnackbar('Ha ocurrido un error en el login, ¡inténtalo de nuevo!, { variant: 'error' })
+    enqueueSnackbar('Ha ocurrido un error en el login, ¡inténtalo de nuevo!', { variant: 'error' })
     console.log(response)
   }
 
