@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './styles'
 import {
-  Typography, TextField, InputAdornment, Button, MenuItem, Select
+  Typography, TextField, InputAdornment, Button
 } from '@material-ui/core'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
@@ -9,6 +9,8 @@ import { Route } from 'react-router'
 import { withStyles, CssBaseline } from "@material-ui/core";
 import { connect } from "react-redux";
 import * as usuariosActions from "../../actions/usuariosActions";
+
+import Autocomplete2 from '../Autocomplete'
 
 import Search from '@material-ui/icons/Search'
 
@@ -23,7 +25,7 @@ const bannerImage = require('../../shared/assets/Main.png')
 const Nominaciones = (props: any) => {
   const { classes } = props
 
-  const [computistas, setComputistas] = React.useState<User[]>([])
+  const [computistas, setComputistas] = React.useState([])
 
   const [categorias, setCategorias] = React.useState<Category[]>([])
 
@@ -84,30 +86,20 @@ const Nominaciones = (props: any) => {
     },
   })(TextField);
 
-  const suggestions = computistas
-    .map(computista => (
-      <MenuItem value={computista.id} >{computista.fullName}</MenuItem>
-    ))
-
-
-  const UserDropdown = () => (
-    <Select onChange={console.log} >{suggestions}</Select>
-  )
-
   const ToUser = () => (
     <React.Fragment>
       <Autocomplete
-        style={{width: '100%'}}
-        options={computistas.map(student => student.fullName)}
-        renderInput={params => ( 
+        style={{ width: '100%' }}
+        options={computistas.map((student: any) => student.fullName)}
+        renderInput={params => (
           <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
-            <CssTextField {...params} variant="outlined" placeholder="Nombre" fullWidth InputProps={{
+            <CssTextField {...params} variant="outlined" placeholder="Nombre1" fullWidth InputProps={{
               ...params.InputProps,
               startAdornment: (
                 <InputAdornment position="start">
                   <Search style={{ color: 'gray' }} />
                 </InputAdornment>
-              ), 
+              ),
             }} />
           </div>
         )} />
@@ -118,9 +110,9 @@ const Nominaciones = (props: any) => {
     <React.Fragment>
       <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
         <Autocomplete
-          style={{width: '100%'}}
-          options={computistas.map(student => student.fullName)}
-          renderInput={params => (   
+          style={{ width: '100%' }}
+          options={computistas.map((student: any) => student.fullName)}
+          renderInput={params => (
             <div style={{ marginRight: '10px' }}>
               <CssTextField {...params} variant="outlined" placeholder="Nominado 1" fullWidth InputProps={{
                 ...params.InputProps,
@@ -131,10 +123,10 @@ const Nominaciones = (props: any) => {
                 ),
               }} />
             </div>
-          )}/>
-         <Autocomplete
-          style={{width: '100%'}}
-          options={computistas.map(student => student.fullName)}
+          )} />
+        <Autocomplete
+          style={{ width: '100%' }}
+          options={computistas.map((student: any) => student.fullName)}
           renderInput={params => (
             <CssTextField {...params} variant="outlined" placeholder="Nominado 2" fullWidth InputProps={{
               ...params.InputProps,
@@ -152,21 +144,21 @@ const Nominaciones = (props: any) => {
   const ToUserWithExtra = () => (
     <React.Fragment>
       <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
-      <Autocomplete
-        style={{width: '55%'}}
-        options={computistas.map(student => student.fullName)}
-        renderInput={params => (
-          <div style={{ marginRight: '10px' }}>
-            <CssTextField {...params} variant="outlined" placeholder="Nominado" fullWidth InputProps={{
-              ...params.InputProps,
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Search style={{ color: 'gray' }} />
-                </InputAdornment>
-              ),
-            }} />
-          </div>
-        )} />
+        <Autocomplete
+          style={{ width: '55%' }}
+          options={computistas.map((student: any) => student.fullName)}
+          renderInput={params => (
+            <div style={{ marginRight: '10px' }}>
+              <CssTextField {...params} variant="outlined" placeholder="Nominado" fullWidth InputProps={{
+                ...params.InputProps,
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search style={{ color: 'gray' }} />
+                  </InputAdornment>
+                ),
+              }} />
+            </div>
+          )} />
         <div>
           <CssTextField variant="outlined" placeholder="¿Porqué?" fullWidth InputProps={{
             startAdornment: (
@@ -182,25 +174,26 @@ const Nominaciones = (props: any) => {
 
   const OnlyExtra = () => (
     <React.Fragment>
-      <Autocomplete
-        options={computistas.map(student => student.fullName)}
+      {/* <Autocomplete
+        options={computistas.map((student: any) => student.fullName)}
         renderInput={params => (
           <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
             <div style={{ marginRight: '10px', width: '100%' }}>
               <CssTextField {...params} variant="outlined" placeholder="Nombre" fullWidth
                 InputProps={{
-                  ...params.InputProps, 
+                  ...params.InputProps,
                   startAdornment: (
                     <InputAdornment position="start">
                       <Search style={{ color: 'gray' }} />
                     </InputAdornment>
                   ),
-                }} 
+                }}
               />
             </div>
           </div>
         )}
-      />
+      /> */}
+      <Autocomplete2 computistas={computistas} />
     </React.Fragment>
   )
 
@@ -221,18 +214,18 @@ const Nominaciones = (props: any) => {
           exact
           render={() =>
             banner(
-            <React.Fragment>
-              <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Typography align="center" variant="h4" className={classes.h4}>{category.name}</Typography>
-                <Typography align="center" variant="h5" className={classes.h5} style={{paddingTop: '1%'}}>{category.description}</Typography>
-                <div className={classes.vote1Div} style={{ marginTop: '45px' }}>
-                  {voteInputs[category.type]()}
+              <React.Fragment>
+                <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <Typography align="center" variant="h4" className={classes.h4}>{category.name}</Typography>
+                  <Typography align="center" variant="h5" className={classes.h5} style={{ paddingTop: '1%' }}>{category.description}</Typography>
+                  <div className={classes.vote1Div} style={{ marginTop: '45px' }}>
+                    {voteInputs[category.type]()}
+                  </div>
+                  <NomineeList users={computistas as User[]} category={category.id} {...props} />
                 </div>
-                <NomineeList users={computistas as User[]} category={category.id} {...props}/>
-              </div>
-            </React.Fragment>, category.pictureUrl)
+              </React.Fragment>, category.pictureUrl)
           } />
-          )}
+      )}
     </React.Fragment>
   );
 }
