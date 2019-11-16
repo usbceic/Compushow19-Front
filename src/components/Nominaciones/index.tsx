@@ -11,40 +11,47 @@ import { connect } from "react-redux";
 import * as usuariosActions from "../../actions/usuariosActions";
 
 import Search from '@material-ui/icons/Search'
-
+import { useSnackbar } from 'notistack'
+import { useHistory } from "react-router-dom";
 import axios from 'axios'
 import { Category } from "../../Models/Category";
 import { User } from '../../Models/User'
 import NomineeList from '../NomineeList/index'
-
+import catchUnauthorized from '../../utils/catchUnauthorized';
 
 const bannerImage = require('../../shared/assets/Main.png')
 
 const Nominaciones = (props: any) => {
   const { classes } = props
+  const { enqueueSnackbar } = useSnackbar();
+  const history = useHistory();
+  const depsCatch = {enqueueSnackbar, history, updateToken: props.updateToken};
 
   const [computistas, setComputistas] = React.useState<User[]>([])
 
   const [categorias, setCategorias] = React.useState<Category[]>([])
 
   React.useEffect(() => {
-    axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
+    const request = axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
       .then((res: any) => {
         setCategorias(res.data)
-      })
-      .catch((err: any) => {
-        console.log(err)
-      })
+      });
+
+    catchUnauthorized(request, depsCatch, (err: any) => {
+      console.log(err)
+    });
+    
   }, [])
 
   React.useEffect(() => {
-    axios.get('https://compushow.link/v1/api/users/all', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
+    const request = axios.get('https://compushow.link/v1/api/users/all', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
       .then((res: any) => {
         setComputistas(res.data)
-      })
-      .catch((err: any) => {
-        console.log(err)
-      })
+      });
+
+    catchUnauthorized(request, depsCatch, (err: any) => {
+      console.log(err)
+    });
   }, [])
 
   const banner = (component: any, img: any) => <div>
