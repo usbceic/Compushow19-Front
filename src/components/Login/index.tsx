@@ -43,7 +43,7 @@ const SignIn = (props: any) => {
   }
 
   const onSignUpFailure = (response: any) => {
-    enqueueSnackbar('Fallo en el login', { variant: 'error' })
+    enqueueSnackbar('Ha ocurrido un error en el login, ¡inténtalo de nuevo!, { variant: 'error' })
     console.log(response)
   }
 
@@ -55,11 +55,11 @@ const SignIn = (props: any) => {
           <img src={`${compushowLogo}`} alt="" className={classes.compushowLogo} />
         </div>
         <div style={{ marginBottom: '15px' }}>
-          <Typography variant="h5" align="center" className={classes.h5}>ESTE AÑO INICIA SESIÓN CON TU USBID</Typography>
+          <Typography variant="h5" align="center" className={classes.h5}>¡Entra con tu USBID!</Typography>
         </div>
         <GoogleLogin
           clientId="497166089120-vga3nqat0j4m6crg2n5mo5060j3geugk.apps.googleusercontent.com"
-          buttonText="Login"
+          buttonText="Iniciar Sesión"
           onSuccess={onSignUpSuccess}
           onFailure={onSignUpFailure}
           cookiePolicy={'single_host_origin'}
