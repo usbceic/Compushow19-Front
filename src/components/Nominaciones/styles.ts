@@ -18,13 +18,16 @@ const styles = (theme: Theme) =>
             },
         },
         h4: {
+            fontFamily: 'Hamster',
             color: '#fe000a',
-            fontWeight: 500,
+            fontSize: '2.5rem',
             [theme.breakpoints.down('sm')]: {
                 fontSize: '1.5rem',
             },
         },
         h5: {
+            fontFamily: 'Hamster',
+            fontSize: '2rem',
             [theme.breakpoints.down('sm')]: {
                 fontSize: '1.2rem',
                 padding: '1% 5% 0',

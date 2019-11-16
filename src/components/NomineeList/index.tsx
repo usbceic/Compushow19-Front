@@ -2,8 +2,7 @@ import React from "react";
 import styles from './styles'
 import { Divider, List, ListItem, ListItemText } from '@material-ui/core'
 
-import { Route, Redirect } from 'react-router'
-import { withStyles, CssBaseline } from "@material-ui/core";
+import { withStyles } from "@material-ui/core";
 import { connect } from "react-redux";
 import { useSnackbar } from 'notistack';
 import { useHistory } from 'react-router-dom';
@@ -36,9 +35,9 @@ const NomineeList = (props: NomineeListProps) => {
         { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
       .then((res: any) => {
         const nominations: Nomination[] = res.data
-        const users : User[] = nominations.reduce((acc, nomination) => {
-            // return []
-            return [...acc, props.users.find(user => user.id === nomination.userId) as User]
+        const users: User[] = nominations.reduce((acc, nomination) => {
+          // return []
+          return [...acc, props.users.find(user => user.id === nomination.userId) as User]
         }, [] as User[])
         setNominees(users)
       });
@@ -51,17 +50,17 @@ const NomineeList = (props: NomineeListProps) => {
 
   return (
     <React.Fragment>
-        <List component="nav" className={classes.root} aria-label="mailbox folders">
-          {(nominees as User[]).map((nominee, index) => (
-            <React.Fragment key={nominee.id}>
-                <ListItem button>
-                    <ListItemText primary={nominee.fullName} />
-                </ListItem>
-                {index !== (nominees.length - 1) ? <Divider /> : ''}
-            </React.Fragment>
-          ))}
+      <List component="nav" className={classes.root} aria-label="mailbox folders">
+        {(nominees as User[]).map((nominee, index) => (
+          <React.Fragment key={nominee.id}>
+            <ListItem button>
+              <ListItemText primary={nominee.fullName} />
+            </ListItem>
+            {index !== (nominees.length - 1) ? <Divider /> : ''}
+          </React.Fragment>
+        ))}
 
-        </List>
+      </List>
     </React.Fragment>
   );
 }

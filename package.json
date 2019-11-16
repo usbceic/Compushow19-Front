@@ -4,14 +4,15 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.4.3",
-    "@material-ui/lab": "4.0.0-alpha.32",
     "@material-ui/icons": "^4.4.3",
+    "@material-ui/lab": "4.0.0-alpha.32",
     "@material-ui/styles": "^4.4.3",
     "@types/axios": "^0.14.0",
     "@types/jest": "24.0.18",
     "@types/material-ui": "^0.21.7",
     "@types/node": "12.7.8",
     "@types/react": "16.9.3",
+    "@types/react-autosuggest": "^9.3.13",
     "@types/react-dom": "16.9.1",
     "@types/react-redux": "^7.1.4",
     "@types/react-router": "^5.1.1",
@@ -20,14 +21,19 @@
     "axios": "^0.19.0",
     "notistack": "^0.8.6",
     "react": "^16.10.1",
+    "react-autocomplete": "^1.8.1",
+    "react-autosuggest": "^9.4.3",
     "react-dom": "^16.10.1",
     "react-google-login": "^5.0.7",
     "react-redux": "^7.1.1",
     "react-router": "^5.1.1",
     "react-router-dom": "^5.1.1",
     "react-scripts": "3.1.2",
+    "react-select2": "^4.0.3",
+    "react-select2-wrapper": "^1.0.4-beta6",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
+    "select2": "^4.0.12",
     "typescript": "3.6.3"
   },
   "scripts": {
@@ -50,5 +56,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-autocomplete": "^1.8.5"
   }
 }
