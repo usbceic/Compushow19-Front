@@ -45,14 +45,9 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## Team
 
-<<<<<<< HEAD
 * Product Manager: Samuel Fagundez (Coordinador Principal de Deportes de JD-CEIC 2018-2019): [@samuelfag97](https://github.com/samuelfag97)
 * Developer: Luis Pino (Coordinador Adjunto de Información y Tecnología de JD-CEIC 2018-2019): [@lapy0110](https://github.com/lapy0110)
 * Developer: Arturo Yepez (Coordinador de Información y Tecnología de JD-CEIC 2018-2019): [@arturyepez10](https://github.com/arturyepez10)
-=======
-- Luis Pino (Coordinador Adjunto de Información y Tecnología de JD-CEIC 2018-2019): [@lapy0110](https://github.com/lapy0110)
-- Samuel Fagundez (Coordinador Principal de Deportes de JD-CEIC 2018-2019): [@samuelfag97](https://github.com/samuelfag97)
->>>>>>> feature/be-integration
 
 ## Contacto
 
