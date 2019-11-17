@@ -4,7 +4,7 @@ import styles from "./styles";
 import Search from '@material-ui/icons/Search'
 
 const Autocomplete = (props: any) => {
-    const { computistasArray, setComputistasArray, text, setText, setSelectedId, classes } = props
+    const { computistasArray, setComputistasArray, text, setText, setSelectedId, classes, error } = props
 
     React.useEffect(() => {
         if (text === '') {
@@ -31,7 +31,7 @@ const Autocomplete = (props: any) => {
                         setSelectedId(e.id)
                     }}>{e.fullName}</MenuItem> : null)}
                 </Paper>
-                <TextField placeholder="Nominado" value={text} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                <TextField placeholder="Nominado" value={text} error={error} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setText(e.target.value)
                     if (!e.target.value) {
                         setComputistasArray([])

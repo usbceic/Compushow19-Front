@@ -47,6 +47,8 @@ const Nominaciones = (props: any) => {
   const [text2, setText2] = React.useState('')
   const [selectedId2, setSelectedId2] = React.useState(9999)
 
+  const [errorState, setErrorState] = React.useState(false)
+
   const [extra, setExtra] = React.useState('')
 
   React.useEffect(() => {
@@ -98,9 +100,17 @@ const Nominaciones = (props: any) => {
         setText('')
         setText2('')
         setExtra('')
+        setErrorState(false)
         setCategoryShouldUpdate(key)(true)
       })
-      .catch((err: any) => enqueueSnackbar('Ha ocurrido un error enviando la nominación, ¡revisa los datos!', { variant: 'error' }))
+      .catch((err: any) => {
+        if (err.response.status == 409) {
+          enqueueSnackbar('Ya has realizado esta nominación', { variant: 'error' })
+        } else {
+          enqueueSnackbar('Ha ocurrido un error enviando la nominación, ¡revisa los datos!', { variant: 'error' })
+        }
+        setErrorState(true)
+      })
   }
 
   const banner = (component: any, img: any) => <div style={{ height: 'calc(100vh - 60px)', overflow: 'auto' }}>
@@ -128,6 +138,7 @@ const Nominaciones = (props: any) => {
         setText={setText}
         selectedId={selectedId}
         setSelectedId={setSelectedId}
+        error={errorState}
       />
       <br />
       <div style={{ marginRight: '10px' }}>
@@ -147,6 +158,7 @@ const Nominaciones = (props: any) => {
           setText={setText}
           selectedId={selectedId}
           setSelectedId={setSelectedId}
+          error={errorState}
         />
         <Autocomplete
           computistas={computistas}
@@ -156,6 +168,7 @@ const Nominaciones = (props: any) => {
           setText={setText2}
           selectedId={selectedId2}
           setSelectedId={setSelectedId2}
+          error={errorState}
         />
       </div>
       <br />
@@ -176,6 +189,7 @@ const Nominaciones = (props: any) => {
           setText={setText}
           selectedId={selectedId}
           setSelectedId={setSelectedId}
+          error={errorState}
         />
         <div>
           <TextField value={extra} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setExtra(e.target.value)} variant="outlined" placeholder="Cartoon" fullWidth />
