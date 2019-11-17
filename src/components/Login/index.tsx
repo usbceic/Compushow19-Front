@@ -32,19 +32,16 @@ const SignIn = (props: any) => {
           props.dispatchUser({ profile: res.data, token: response.tokenId })
           if (response.tokenId !== props.user.token) props.updateToken(response.tokenId)
           enqueueSnackbar('Bienvenido al CompuShow 2019', { variant: 'success' })
-          console.log(response)
           return props.history.push('/home')
         }
       })
       .catch((err: any) => {
         enqueueSnackbar('Debes usar tu correo @usb.ve (solo computistas)', { variant: 'error' })
-        console.log(err)
       })
   }
 
   const onSignUpFailure = (response: any) => {
     enqueueSnackbar('Ha ocurrido un error en el login, ¡inténtalo de nuevo!', { variant: 'error' })
-    console.log(response)
   }
 
   return (

@@ -64,7 +64,6 @@ const Nominaciones = (props: any) => {
       })
       .catch(catchUnauthorized(depsCatch))
       .catch((err: any) => {
-        console.log(err)
       });
   }, [])
 
@@ -75,7 +74,6 @@ const Nominaciones = (props: any) => {
       })
       .catch(catchUnauthorized(depsCatch))
       .catch((err: any) => {
-        console.log(err)
       });
   }, [])
 
@@ -232,7 +230,6 @@ const Nominaciones = (props: any) => {
                 <div style={{ width: '25%', height: '40px', marginTop: '25px', marginBottom: '20px', position: 'relative' }}>
                   <Button onClick={() => {
                     onNominate(category.id, selectedId, selectedId2, extra)
-                    console.log(selectedId)
                   }} color="secondary" fullWidth style={{ textTransform: 'capitalize', background: '#FF0000', color: 'white' }}>Nominar</Button>
                 </div>
                 <NomineeList

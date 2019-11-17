@@ -55,7 +55,6 @@ const Menu = (props: any) => {
         })
         )
         .catch((err: any) => {
-          console.log(err)
         });
   }, [])
 

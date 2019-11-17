@@ -47,7 +47,7 @@ const NomineeList = (props: NomineeListProps) => {
       })
       .catch(catchUnauthorized(depsCatch))
       .catch((err: any) => {
-        console.log(err)
+        
       });
   }
 
@@ -70,7 +70,7 @@ const NomineeList = (props: NomineeListProps) => {
         })
         .catch(catchUnauthorized(depsCatch))
         .catch((err: any) => {
-          console.log(err)
+          
         });
       props.setShouldUpdate(false)
       setEnter(false)
