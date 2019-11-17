@@ -13,7 +13,7 @@ const catchUnauthorized = (deps: Dependencies) => (err: any) => {
     if (err.response && err.response.status === 401) {
         let msg = "Debes iniciar sesión";
         deps.enqueueSnackbar(msg, { variant: 'error' })
-        
+        deps.updateToken('')
         deps.history.push('/login');
     } else {
         throw err;
