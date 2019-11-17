@@ -33,14 +33,14 @@ const Home = (props: any) => {
             <div style={{ width: '100%', textAlign: 'center', marginTop: '15px', marginBottom: '15px' }}>
               <img src={`${compushowLogo}`} alt="" className={classes.compushowLogo} />
             </div>
-            <Typography variant="h4" style={{ width: '100%' }} align="center" className={classes.h4}>Es la época de las motocicletas, las chaquetas de cuero, el gel en el cabello y el baile por doquier</Typography>
-            <br />
-            <Typography variant="h4" style={{ width: '100%' }} align="center" className={classes.h4}>¡Necesitamos de tu ayuda para conocer quiénes serán los protagonistas de nuestro magno evento!</Typography>
             <div style={{ display: 'flex', height: '45px', justifyContent: 'center' }}>
               <Link style={{ textDecoration: 'none' }} to="/nominaciones">
-                <Button variant="contained" style={{ color: 'white', textTransform: 'capitalize', background: '#FF0000', width: '300px', height: '40px', marginTop: '60px' }}>Ver Categorías</Button>
+                <Button variant="contained" style={{ color: 'white', textTransform: 'capitalize', background: '#FF0000', width: '300px', height: '40px', marginTop: '20px' }}>Ver Categorías</Button>
               </Link>
             </div>
+            <Typography variant="h4" style={{ width: '100%', marginTop: '60px' }} align="center" className={classes.h4}>Es la época de las motocicletas, las chaquetas de cuero, el gel en el cabello y el baile por doquier</Typography>
+            <br />
+            <Typography variant="h4" style={{ width: '100%' }} align="center" className={classes.h4}>¡Necesitamos de tu ayuda para conocer quiénes serán los protagonistas de nuestro magno evento!</Typography>
           </div>
         </div>
 
