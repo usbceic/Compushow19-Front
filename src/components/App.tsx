@@ -62,9 +62,9 @@ const App = (props: any) => {
           <Route
             path='/votaciones'
             render={(props2: RouteComponentProps) => {
-              // if (!props.user.token) {
-              //   return (<Redirect to="/login" />)
-              // }
+              if (!props.user.token) {
+                return (<Redirect to="/login" />)
+              }
 
 
               return (<React.Fragment>
