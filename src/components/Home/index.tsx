@@ -8,7 +8,6 @@ import { withStyles, CssBaseline, Typography, Button } from "@material-ui/core";
 import { connect } from "react-redux";
 import * as usuariosActions from "../../actions/usuariosActions";
 
-const homeImage = require('../../shared/assets/Home.png')
 const compushowLogo = require('../../shared/assets/compushowLogo.svg')
 
 const Home = (props: any) => {

@@ -9,7 +9,6 @@ import * as usuariosActions from "../../actions/usuariosActions";
 
 import Autocomplete from '../Autocomplete'
 
-import Search from '@material-ui/icons/Search'
 import { useSnackbar } from 'notistack'
 import { useHistory } from "react-router-dom";
 import axios from 'axios'
@@ -17,8 +16,6 @@ import { Category } from "../../Models/Category";
 import { User } from '../../Models/User'
 import NomineeList from '../NomineeList/index'
 import catchUnauthorized from '../../utils/catchUnauthorized';
-
-const bannerImage = require('../../shared/assets/Main.png')
 
 const Nominaciones = (props: any) => {
   const { classes } = props
@@ -52,7 +49,7 @@ const Nominaciones = (props: any) => {
   const [extra, setExtra] = React.useState('')
 
   React.useEffect(() => {
-    const request = axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
+    axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
       .then((res: any) => {
         setCategorias(res.data)
 
@@ -68,7 +65,7 @@ const Nominaciones = (props: any) => {
   }, [])
 
   React.useEffect(() => {
-    const request = axios.get('https://compushow.link/v1/api/users/all', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
+    axios.get('https://compushow.link/v1/api/users/all', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
       .then((res: any) => {
         setComputistas(res.data)
       })
@@ -102,7 +99,7 @@ const Nominaciones = (props: any) => {
         setCategoryShouldUpdate(key)(true)
       })
       .catch((err: any) => {
-        if (err.response.status == 409) {
+        if (err.response.status === 409) {
           enqueueSnackbar('Ya has realizado esta nominación', { variant: 'error' })
         } else {
           enqueueSnackbar('Ha ocurrido un error enviando la nominación, ¡revisa los datos!', { variant: 'error' })

@@ -43,19 +43,18 @@ const Menu = (props: any) => {
   const [categorias, setCategorias] = React.useState([])
 
   React.useEffect(() => {
-    const request =
-      axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${google_token}` } })
-        .then((res: any) => {
-          setCategorias(res.data)
-        })
-        .catch(catchUnauthorized({
-          enqueueSnackbar,
-          history,
-          updateToken: props.updateToken
-        })
-        )
-        .catch((err: any) => {
-        });
+    axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${google_token}` } })
+      .then((res: any) => {
+        setCategorias(res.data)
+      })
+      .catch(catchUnauthorized({
+        enqueueSnackbar,
+        history,
+        updateToken: props.updateToken
+      })
+      )
+      .catch((err: any) => {
+      });
   }, [])
 
   React.useEffect(() => {

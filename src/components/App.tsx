@@ -5,6 +5,7 @@ import Menu from "./Navbar/Menu";
 import Home from "./Home";
 import Login from "./Login";
 import Nominaciones from "./Nominaciones"
+import Votaciones from "./Votaciones";
 import Footer from './Footer'
 
 import { connect } from "react-redux";
@@ -58,7 +59,21 @@ const App = (props: any) => {
             }
             }
           />
+          <Route
+            path='/votaciones'
+            render={(props2: RouteComponentProps) => {
+              // if (!props.user.token) {
+              //   return (<Redirect to="/login" />)
+              // }
 
+
+              return (<React.Fragment>
+                <Menu {...props2} />
+                <Votaciones {...props2} />
+                <Footer {...props2} />
+              </React.Fragment>)
+            }}
+          />
         </Switch>
       </div>
     </BrowserRouter>
