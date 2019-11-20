@@ -106,8 +106,8 @@ const Votaciones = (props: any) => {
 
 
     const onVote = (nomId: number, categoryId: number) => {
-        axios.post(`${server}/v1/api/votes/byCategory/${categoryId}`,
-            { optionId: nomId },
+        axios.post(`${server}/v1/api/votes`,
+            { nomineeId: nomId },
             { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } }
         )
             .then((res: any) => {
