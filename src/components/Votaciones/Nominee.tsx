@@ -15,10 +15,17 @@ export default function NomineeComp(props: any) {
     const [maxWidth, setMaxWidth] = React.useState<DialogProps['maxWidth']>('sm');
     const [fullWidth, setFullWidth] = React.useState(true);
     const nominee: Nominee = props.nom
+    const userHasVoted: boolean = props.userHasVoted
 
     const handleClose = () => {
         setOpen(false);
     };
+
+    React.useEffect(() => {
+        if (userHasVoted) {
+            setOpen(false)
+        }
+    })
 
     return (
         <Grid item xs={12} sm={6}

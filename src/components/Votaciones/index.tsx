@@ -160,60 +160,7 @@ const Votaciones = (props: any) => {
             .catch(err => console.log(err))
     }
 
-    // const dualNomination = <React.Fragment>
-    //     <Grid item xs={12} sm={6}
-    //     // style={{ imparElKey ? paddingTop: '50px' : paddingTop: '0px' }}
-    //     >
-    //         <Button onClick={() => {
-    //             setOpen(true)
-    //             setSelectedId(1)
-    //         }}>
-    //             <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', textTransform: 'capitalize' }}>
-    //                 <div style={{ display: 'flex' }}>
-    //                     <div style={{ marginRight: '20px' }}>
-    //                         <img
-    //                             src="https://via.placeholder.com/100" alt="" />
-    //                     </div>
-    //                     <div>
-    //                         <img
-    //                             src="https://via.placeholder.com/100" alt="" />
-    //                     </div>
-    //                 </div>
-    //                 <Typography align="center" style={{ height: 'auto', marginTop: '5px' }} variant="h4" className={classes.h4}>Pareja 1</Typography>
-    //             </div>
-    //         </Button>
-    //     </Grid>
-    //     <Dialog
-    //         fullWidth={fullWidth}
-    //         maxWidth={maxWidth}
-    //         open={open}
-    //         onClose={handleClose}
-    //         aria-labelledby="max-width-dialog-title"
-    //     >
-    //         <DialogTitle id="max-width-dialog-title">Confirmar voto</DialogTitle>
-    //         <div style={{ width: '100%', textAlign: 'center' }}>
-    //             <img
-    //                 src="https://via.placeholder.com/200" alt="" />
-    //         </div>
-    //         <DialogContent>
-    //             <DialogContentText>
-    //                 <Typography align="center" style={{ height: 'auto', marginTop: '5px' }} variant="h5" className={classes.h5}>Deseas votar por x en la categoria y ?</Typography>
-    //             </DialogContentText>
-    //         </DialogContent>
-    //         <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-    //             <Button variant="contained" color="primary" style={{ marginRight: '5px', background: '#4C1A02' }} onClick={() => {
-    //                 // onVote(selectedId)
-    //             }}>Done</Button>
-    //             <Button variant="contained" color="secondary" style={{ marginLeft: '5px', background: '#F9ECB7', color: 'black' }} onClick={() => {
-    //                 setOpen(false)
-    //                 setSelectedId(9999)
-    //             }}>Cancel</Button>
-    //         </div>
-    //         <DialogActions>
-    //         </DialogActions>
-    //     </Dialog>
-    // </React.Fragment>
-
+    const userHasVoted = !nominados.every(nominado => nominado.isHappy)
     return (
         <React.Fragment>
             <CssBaseline />
@@ -242,13 +189,15 @@ const Votaciones = (props: any) => {
                                     <Typography align="center" style={{ height: 'auto' }} variant="h4" className={classes.h4}>{category.name}</Typography>
                                     <div style={{ marginTop: '20px' }}>
                                         <Grid container justify="center">
-                                            {nominados.map((e: any, i: number) => (<NomineeComp classes={classes} onVote={onVote} setSelectedId={setSelectedId} nom={e} key={i} i={i} category={category} />))}
+                                            {nominados.map((e: any, i: number) => (
+                                                <NomineeComp userHasVoted={userHasVoted} classes={classes} onVote={onVote} setSelectedId={setSelectedId} nom={e} key={i} i={i} category={category} />))}
                                         </Grid>
                                     </div>
                                 </div>
                                 <div style={{ width: '60%', height: '100%' }}>
                                     <Grid container justify="center" style={{ padding: '40px', paddingBottom: '30px' }}>
-                                        {comentarios.map((e: any, i: number) => (<Comments classes={classes} key={i} i={i} comment={comentarios[i]} />))}
+                                        {comentarios.map((e: any, i: number) => (
+                                            <Comments classes={classes} key={i} i={i} comment={comentarios[i]} />))}
                                     </Grid>
                                 </div>
                             </div>
