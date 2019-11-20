@@ -84,51 +84,52 @@ const Votaciones = (props: any) => {
             });
     }, [])
 
-    React.useEffect(() => {
-        async function loadNominees() {
-            const idUrl = parseInt(props.location.pathname.split('/').reverse()[0], 10)
-            if (idUrl) {
-                let nominadosResponse: Nominee[]
+    async function loadNominees() {
+        const idUrl = parseInt(props.location.pathname.split('/').reverse()[0], 10)
+        if (idUrl) {
+            let nominadosResponse: Nominee[]
 
-                // buscamos los nominados
-                try {
-                    const response =
-                        await axios.get(`${server}/v1/api/nominees/byCategory/${idUrl}`,
-                        {
-                            params: {},
-                            headers: { 'Authorization': `Bearer ${props.user.token}` }
-                        })
-                    nominadosResponse = response.data
-                    nominadosResponse = nominadosResponse.map(n => ({
-                        ...n,
-                        isHappy: true
-                    }))
-                } catch (e) {
-                    console.error(e) // this should not happen
-                    return
-                }
-                // buscamos si hay algún votado en esta categoría
-                try {
-                    const response =
-                        await axios.get(`${server}/v1/api/votes/byCategory/${idUrl}`,
-                        {
-                            params: {},
-                            headers: { 'Authorization': `Bearer ${props.user.token}` }
-                        })
-                    const voto : Vote = response.data
-                    console.log(voto)
-                    nominadosResponse = nominadosResponse.map(n => ({
-                        ...n,
-                        isHappy: n.id === voto.nomineeId
-                    }))
-                } catch (e) {
-                    console.error(e)
-                }
-                console.log(nominadosResponse)
-                setNominados(nominadosResponse)
+            // buscamos los nominados
+            try {
+                const response =
+                    await axios.get(`${server}/v1/api/nominees/byCategory/${idUrl}`,
+                    {
+                        params: {},
+                        headers: { 'Authorization': `Bearer ${props.user.token}` }
+                    })
+                nominadosResponse = response.data
+                nominadosResponse = nominadosResponse.map(n => ({
+                    ...n,
+                    isHappy: true
+                }))
+            } catch (e) {
+                console.error(e) // this should not happen
+                return
             }
-    
+            // buscamos si hay algún votado en esta categoría
+            try {
+                const response =
+                    await axios.get(`${server}/v1/api/votes/byCategory/${idUrl}`,
+                    {
+                        params: {},
+                        headers: { 'Authorization': `Bearer ${props.user.token}` }
+                    })
+                const voto : Vote = response.data
+                console.log(voto)
+                nominadosResponse = nominadosResponse.map(n => ({
+                    ...n,
+                    isHappy: n.id === voto.nomineeId
+                }))
+            } catch (e) {
+                console.error(e)
+            }
+            console.log(nominadosResponse)
+            setNominados(nominadosResponse)
         }
+
+    }
+
+    React.useEffect(() => {
         loadNominees()
     }, [props.location.pathname])
 
@@ -151,6 +152,7 @@ const Votaciones = (props: any) => {
             { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } }
         )
             .then((res: any) => {
+                loadNominees()
                 enqueueSnackbar('Voto enviado', { variant: 'success' })
                 setSelectedId(9999)
                 setCategoryShouldUpdate(categoryId)(true)
