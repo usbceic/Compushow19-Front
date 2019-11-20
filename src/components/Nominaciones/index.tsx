@@ -6,6 +6,7 @@ import { Route } from 'react-router'
 import { withStyles, CssBaseline } from "@material-ui/core";
 import { connect } from "react-redux";
 import * as usuariosActions from "../../actions/usuariosActions";
+import { server } from '../../shared/CONSTANTS/server'
 
 import Autocomplete from '../Autocomplete'
 
@@ -49,7 +50,7 @@ const Nominaciones = (props: any) => {
   const [extra, setExtra] = React.useState('')
 
   React.useEffect(() => {
-    axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
+    axios.get(`${server}/v1/api/categories`, { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
       .then((res: any) => {
         setCategorias(res.data)
 
@@ -65,7 +66,7 @@ const Nominaciones = (props: any) => {
   }, [])
 
   React.useEffect(() => {
-    axios.get('https://compushow.link/v1/api/users/all', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
+    axios.get(`${server}/v1/api/users/all`, { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
       .then((res: any) => {
         setComputistas(res.data)
       })
@@ -85,7 +86,7 @@ const Nominaciones = (props: any) => {
   }, [props.location.pathname])
 
   const onNominate = (key: number, nom1?: number, nom2?: number, aux?: string) => {
-    axios.post(`https://compushow.link/v1/api/nominations`,
+    axios.post(`${server}/v1/api/nominations`,
       nom1 !== 9999 && nom2 !== 9999 && extra !== '' ? { categoryId: key, mainNominee: nom1, auxNominee: nom2, extra: extra } : nom1 !== 9999 && nom2 !== 9999 && extra === '' ? { categoryId: key, mainNominee: nom1, auxNominee: nom2 } : nom1 !== 9999 && nom2 === 9999 && extra === '' ? { categoryId: key, mainNominee: nom1 } : nom1 !== 9999 && nom2 === 9999 && extra !== '' ? { categoryId: key, mainNominee: nom1, extra: aux } : nom1 === 9999 && nom2 === 9999 && extra !== '' ? { categoryId: key, extra: aux } : null,
       { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
 

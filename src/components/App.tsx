@@ -41,7 +41,7 @@ const App = (props: any) => {
                 <Footer {...props} />
               </React.Fragment>}
           />
-          <Route
+          {/* <Route
             path='/nominaciones'
             render={(props2: RouteComponentProps) => {
 
@@ -58,14 +58,13 @@ const App = (props: any) => {
               </React.Fragment>)
             }
             }
-          />
+          /> */}
           <Route
             path='/votaciones'
             render={(props2: RouteComponentProps) => {
               if (!props.user.token) {
                 return (<Redirect to="/login" />)
               }
-
 
               return (<React.Fragment>
                 <Menu {...props2} />

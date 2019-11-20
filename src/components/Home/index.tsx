@@ -33,8 +33,8 @@ const Home = (props: any) => {
               <img src={`${compushowLogo}`} alt="" className={classes.compushowLogo} />
             </div>
             <div style={{ display: 'flex', height: '45px', justifyContent: 'center' }}>
-              <Link style={{ textDecoration: 'none' }} to="/nominaciones">
-                <Button variant="contained" style={{ color: 'white', textTransform: 'capitalize', background: '#FF0000', width: '300px', height: '40px', marginTop: '20px' }}>Ver Categorías</Button>
+              <Link style={{ textDecoration: 'none' }} to="/votaciones">
+                <Button variant="contained" style={{ color: 'white', textTransform: 'capitalize', background: '#FF0000', width: '300px', height: '40px', marginTop: '20px' }}>Ir a votar</Button>
               </Link>
             </div>
             <Typography variant="h4" style={{ width: '100%', marginTop: '60px' }} align="center" className={classes.h4}>Es la época de las motocicletas, las chaquetas de cuero, el gel en el cabello y el baile por doquier</Typography>

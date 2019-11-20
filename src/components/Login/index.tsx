@@ -3,6 +3,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import styles from './styles'
 import Typography from '@material-ui/core/Typography'
+import { server } from '../../shared/CONSTANTS/server'
 
 import { Redirect } from 'react-router'
 
@@ -26,7 +27,7 @@ const SignIn = (props: any) => {
   }
 
   const onSignUpSuccess = (response: any) => {
-    axios.get('https://compushow.link/v1/api/users/me', { params: {}, headers: { 'Authorization': `Bearer ${response.tokenId}` } })
+    axios.get(`${server}/v1/api/users/me`, { params: {}, headers: { 'Authorization': `Bearer ${response.tokenId}` } })
       .then((res: any) => {
         if (res.status === 200) {
           props.dispatchUser({ profile: res.data, token: response.tokenId })
@@ -36,6 +37,7 @@ const SignIn = (props: any) => {
         }
       })
       .catch((err: any) => {
+        console.log(err)
         enqueueSnackbar('Debes usar tu correo @usb.ve (solo computistas)', { variant: 'error' })
       })
   }
@@ -43,6 +45,7 @@ const SignIn = (props: any) => {
   const onSignUpFailure = (response: any) => {
     enqueueSnackbar('Ha ocurrido un error en el login, ¡inténtalo de nuevo!', { variant: 'error' })
   }
+
 
   return (
     <Container component="main" maxWidth="sm" style={{ height: 'calc(80vh - 60px)', display: 'flex', alignItems: 'center', position: 'relative' }} >
@@ -55,13 +58,13 @@ const SignIn = (props: any) => {
           <Typography variant="h5" align="center" className={classes.h5}>¡Entra con tu USBID!</Typography>
         </div>
         <GoogleLogin
-          clientId="497166089120-vga3nqat0j4m6crg2n5mo5060j3geugk.apps.googleusercontent.com"
+          clientId="497166089120-s08k71619ql6nnv32m9sv4ga21qpa3eo.apps.googleusercontent.com"
           buttonText="Iniciar Sesión"
           onSuccess={onSignUpSuccess}
           onFailure={onSignUpFailure}
           cookiePolicy={'single_host_origin'}
         />
-      {document.getElementById('googleButton')}
+        {document.getElementById('googleButton')}
       </div>
     </Container>
   );

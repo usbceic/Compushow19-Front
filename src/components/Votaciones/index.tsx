@@ -5,7 +5,7 @@ import { Typography, Button, Grid } from '@material-ui/core'
 import { withStyles, CssBaseline } from "@material-ui/core";
 import { connect } from "react-redux";
 import * as usuariosActions from "../../actions/usuariosActions";
-
+import { server } from '../../shared/CONSTANTS/server'
 import { Route } from 'react-router'
 
 import { useSnackbar } from 'notistack'
@@ -75,7 +75,7 @@ const Votaciones = (props: any) => {
 
 
     React.useEffect(() => {
-        axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
+        axios.get(`${server}/v1/api/categories`, { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
             .then((res: any) => {
                 setCategorias(res.data)
 
@@ -95,7 +95,7 @@ const Votaciones = (props: any) => {
     }, [props.location.pathname])
 
     const onVote = (nomId: number, categoryId: number) => {
-        axios.post(`https://compushow.link/v1/api/vote`,
+        axios.post(`${server}/v1/api/vote`,
             { nomId: nomId, categoryId: categoryId },
             { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } }
         )

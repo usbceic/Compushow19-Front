@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './styles'
 import { Divider, List, ListItem, ListItemText, Typography } from '@material-ui/core'
-
+import { server } from '../../shared/CONSTANTS/server'
 import { withStyles } from "@material-ui/core";
 import { connect } from "react-redux";
 import { useSnackbar } from 'notistack';
@@ -34,7 +34,7 @@ const NomineeList = (props: NomineeListProps) => {
   const [enter, setEnter] = React.useState(true)
 
   const onDelete = (id: number) => () => {
-    axios.delete(`https://compushow.link/v1/api/nominations/${id}`,
+    axios.delete(`${server}/v1/api/nominations/${id}`,
       {
         params: {},
         headers: {
@@ -47,7 +47,7 @@ const NomineeList = (props: NomineeListProps) => {
       })
       .catch(catchUnauthorized(depsCatch))
       .catch((err: any) => {
-        
+
       });
   }
 
@@ -58,7 +58,7 @@ const NomineeList = (props: NomineeListProps) => {
 
   React.useEffect(() => {
     if (enter || props.shouldUpdate) {
-      axios.get(`https://compushow.link/v1/api/nominations/byCategory/${props.category}/byUser`,
+      axios.get(`${server}/v1/api/nominations/byCategory/${props.category}/byUser`,
         {
           params: {},
           headers: {
@@ -70,7 +70,7 @@ const NomineeList = (props: NomineeListProps) => {
         })
         .catch(catchUnauthorized(depsCatch))
         .catch((err: any) => {
-          
+
         });
       props.setShouldUpdate(false)
       setEnter(false)
