@@ -27,7 +27,7 @@ export default function Nominee(props: any) {
             }}>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <img
-                        src="https://via.placeholder.com/100" alt="" />
+                        src={props.nom.happyPictureUrl} alt="" />
                     <Typography align="center" style={{ height: 'auto', marginTop: '5px' }} variant="body1" className={classes.body1}>{props.nom.name}</Typography>
                 </div>
             </Button>
@@ -41,7 +41,7 @@ export default function Nominee(props: any) {
                 <DialogTitle id="max-width-dialog-title">Confirmar voto</DialogTitle>
                 <div style={{ width: '100%', textAlign: 'center' }}>
                     <img
-                        src="https://via.placeholder.com/200" alt="" />
+                        src={props.nom.happyPictureUrl} alt="" />
                 </div>
                 <DialogContent>
                     <DialogContentText>

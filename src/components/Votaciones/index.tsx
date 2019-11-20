@@ -194,8 +194,7 @@ const Votaciones = (props: any) => {
                                     paddingTop: '40px',
                                 }}>
                                     <img
-                                        //   src={`${category.pictureUrl}`}
-                                        src="https://via.placeholder.com/200"
+                                          src={`${category.pictureUrl}`}
                                         style={{ marginBottom: '10px' }} alt="" />
 
                                     <Typography align="center" style={{ height: 'auto' }} variant="h4" className={classes.h4}>{category.name}</Typography>
