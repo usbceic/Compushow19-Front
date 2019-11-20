@@ -12,11 +12,13 @@ import { useSnackbar } from 'notistack'
 import { useHistory } from "react-router-dom";
 import axios from 'axios'
 import { Category } from "../../Models/Category";
+import { Nominee } from "../../Models/Nominee";
+import { Vote } from "../../Models/Vote";
 import catchUnauthorized from '../../utils/catchUnauthorized';
 
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 
-import Nominee from './Nominee'
+import NomineeComp from './Nominee'
 import Comments from './Comments'
 
 
@@ -45,10 +47,10 @@ const Votaciones = (props: any) => {
     const history = useHistory();
     const depsCatch = { enqueueSnackbar, history, updateToken: props.updateToken };
 
-    const [nominados, setNominados] = React.useState([])
+    const [nominados, setNominados] = React.useState<Nominee[]>([])
     const [comentarios, setComentarios] = React.useState([])
     const [categorias, setCategorias] = React.useState<Category[]>([])
-    const [selectedId, setSelectedId] = React.useState(9999)
+    const [selectedId, setSelectedId] = React.useState(999)
 
     const [shouldUpdate, setShouldUpdate]: any = React.useState({} as any)
     const setCategoryShouldUpdate = (category: number) => (val: boolean) => {
@@ -83,14 +85,51 @@ const Votaciones = (props: any) => {
     }, [])
 
     React.useEffect(() => {
-        const idUrl = parseInt(props.location.pathname.split('/').reverse()[0], 10)
-        if (idUrl) {
-            axios.get(`${server}/v1/api/nominees/byCategory/${idUrl}`, { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
-                .then(res => {
-                    setNominados(res.data)
-                })
-                .catch(err => console.log(err))
+        async function loadNominees() {
+            const idUrl = parseInt(props.location.pathname.split('/').reverse()[0], 10)
+            if (idUrl) {
+                let nominadosResponse: Nominee[]
+
+                // buscamos los nominados
+                try {
+                    const response =
+                        await axios.get(`${server}/v1/api/nominees/byCategory/${idUrl}`,
+                        {
+                            params: {},
+                            headers: { 'Authorization': `Bearer ${props.user.token}` }
+                        })
+                    nominadosResponse = response.data
+                    nominadosResponse = nominadosResponse.map(n => ({
+                        ...n,
+                        isHappy: true
+                    }))
+                } catch (e) {
+                    console.error(e) // this should not happen
+                    return
+                }
+                // buscamos si hay algún votado en esta categoría
+                try {
+                    const response =
+                        await axios.get(`${server}/v1/api/votes/byCategory/${idUrl}`,
+                        {
+                            params: {},
+                            headers: { 'Authorization': `Bearer ${props.user.token}` }
+                        })
+                    const voto : Vote = response.data
+                    console.log(voto)
+                    nominadosResponse = nominadosResponse.map(n => ({
+                        ...n,
+                        isHappy: n.id === voto.nomineeId
+                    }))
+                } catch (e) {
+                    console.error(e)
+                }
+                console.log(nominadosResponse)
+                setNominados(nominadosResponse)
+            }
+    
         }
+        loadNominees()
     }, [props.location.pathname])
 
     React.useEffect(() => {
@@ -104,6 +143,7 @@ const Votaciones = (props: any) => {
         }
     }, [props.location.pathname])
 
+    console.log(nominados)
 
     const onVote = (nomId: number, categoryId: number) => {
         axios.post(`${server}/v1/api/votes`,
@@ -200,7 +240,7 @@ const Votaciones = (props: any) => {
                                     <Typography align="center" style={{ height: 'auto' }} variant="h4" className={classes.h4}>{category.name}</Typography>
                                     <div style={{ marginTop: '20px' }}>
                                         <Grid container justify="center">
-                                            {nominados.map((e: any, i: number) => (<Nominee classes={classes} onVote={onVote} setSelectedId={setSelectedId} nom={e} key={i} i={i} category={category} />))}
+                                            {nominados.map((e: any, i: number) => (<NomineeComp classes={classes} onVote={onVote} setSelectedId={setSelectedId} nom={e} key={i} i={i} category={category} />))}
                                         </Grid>
                                     </div>
                                 </div>

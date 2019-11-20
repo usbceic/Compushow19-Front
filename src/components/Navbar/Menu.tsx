@@ -43,8 +43,6 @@ const Menu = (props: any) => {
 
   const [categorias, setCategorias] = React.useState([])
 
-  console.log(categorias)
-
   React.useEffect(() => {
     axios.get(`${server}/v1/api/categories`, { params: {}, headers: { 'Authorization': `Bearer ${google_token}` } })
       .then((res: any) => {

@@ -6,13 +6,15 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import {Nominee} from '../../Models/Nominee'
 
 
-export default function Nominee(props: any) {
+export default function NomineeComp(props: any) {
     const { classes } = props
     const [open, setOpen] = React.useState(false);
     const [maxWidth, setMaxWidth] = React.useState<DialogProps['maxWidth']>('sm');
     const [fullWidth, setFullWidth] = React.useState(true);
+    const nominee: Nominee = props.nom
 
     const handleClose = () => {
         setOpen(false);
@@ -27,8 +29,10 @@ export default function Nominee(props: any) {
             }}>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <img
-                        src={props.nom.happyPictureUrl} alt="" />
-                    <Typography align="center" style={{ height: 'auto', marginTop: '5px' }} variant="body1" className={classes.body1}>{props.nom.name}</Typography>
+                        src={nominee.isHappy
+                            ? nominee.happyPictureUrl
+                            : nominee.sadPictureUrl} alt="" />
+                    <Typography align="center" style={{ height: 'auto', marginTop: '5px' }} variant="body1" className={classes.body1}>{nominee.name}</Typography>
                 </div>
             </Button>
             <Dialog
@@ -41,17 +45,17 @@ export default function Nominee(props: any) {
                 <DialogTitle id="max-width-dialog-title">Confirmar voto</DialogTitle>
                 <div style={{ width: '100%', textAlign: 'center' }}>
                     <img
-                        src={props.nom.happyPictureUrl} alt="" />
+                        src={nominee.happyPictureUrl} alt="" />
                 </div>
                 <DialogContent>
                     <DialogContentText>
-                        <Typography align="center" style={{ height: 'auto', marginTop: '5px' }} variant="h5" className={classes.h5}>Deseas votar por {props.nom.name} en la categoria {props.category.name} ?</Typography>
+                        <Typography align="center" style={{ height: 'auto', marginTop: '5px' }} variant="h5" className={classes.h5}>Deseas votar por {nominee.name} en la categoria {props.category.name} ?</Typography>
                     </DialogContentText>
                 </DialogContent>
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                     <Button variant="contained" color="primary" style={{ marginRight: '5px', background: '#4C1A02' }} onClick={() => {
                         // onVote(selectedId)
-                        props.onVote(props.nom.id, props.category.id)
+                        props.onVote(nominee.id, props.category.id)
                     }}>Done</Button>
                     <Button variant="contained" color="secondary" style={{ marginLeft: '5px', background: '#F9ECB7', color: 'black' }} onClick={() => {
                         setOpen(false)
