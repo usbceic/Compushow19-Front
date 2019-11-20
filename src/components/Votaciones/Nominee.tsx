@@ -56,10 +56,10 @@ export default function NomineeComp(props: any) {
                     <Button variant="contained" color="primary" style={{ marginRight: '5px', background: '#4C1A02' }} onClick={() => {
                         // onVote(selectedId)
                         props.onVote(nominee.id, props.category.id)
-                    }}>Done</Button>
+                    }}>Votar</Button>
                     <Button variant="contained" color="secondary" style={{ marginLeft: '5px', background: '#F9ECB7', color: 'black' }} onClick={() => {
                         setOpen(false)
-                    }}>Cancel</Button>
+                    }}>Mejor no...</Button>
                 </div>
                 <DialogActions>
                 </DialogActions>
