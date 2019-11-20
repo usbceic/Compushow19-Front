@@ -8,16 +8,19 @@ const styles = (theme: Theme) =>
             },
         },
         h1: {
+            fontFamily: 'Hamster',
             [theme.breakpoints.down('sm')]: {
                 fontSize: '2.5rem',
             },
         },
         h2: {
+            fontFamily: 'Hamster',
             [theme.breakpoints.down('sm')]: {
                 fontSize: '2.2rem',
             },
         },
         h3: {
+            fontFamily: 'Hamster',
             [theme.breakpoints.down('sm')]: {
                 fontSize: '1.8rem',
             },
@@ -39,16 +42,19 @@ const styles = (theme: Theme) =>
             },
         },
         h6: {
+            fontFamily: 'Hamster',
             [theme.breakpoints.down('sm')]: {
                 fontSize: '1rem',
             },
         },
         body1: {
+            fontFamily: 'Hamster',
             [theme.breakpoints.down('sm')]: {
                 fontSize: '0.85rem',
             },
         },
         subtitle1: {
+            fontFamily: 'Hamster',
             [theme.breakpoints.down('sm')]: {
                 fontSize: '0.7rem',
             },
