@@ -5,6 +5,7 @@ import styles from "./styles";
 import { connect } from "react-redux";
 import { useSnackbar } from 'notistack';
 import { useHistory } from "react-router-dom";
+import { server } from '../../shared/CONSTANTS/server'
 import * as usuariosActions from "../../actions/usuariosActions";
 import { Category } from '../../Models/Category'
 import catchUnauthorized from '../../utils/catchUnauthorized';
@@ -43,23 +44,28 @@ const Menu = (props: any) => {
   const [categorias, setCategorias] = React.useState([])
 
   React.useEffect(() => {
-    const request =
-      axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${google_token}` } })
-        .then((res: any) => {
-          setCategorias(res.data)
-        })
-        .catch(catchUnauthorized({
-          enqueueSnackbar,
-          history,
-          updateToken: props.updateToken
-        })
-        )
-        .catch((err: any) => {
-        });
+    axios.get(`${server}/v1/api/categories`, { params: {}, headers: { 'Authorization': `Bearer ${google_token}` } })
+      .then((res: any) => {
+        setCategorias(res.data)
+      })
+      .catch(catchUnauthorized({
+        enqueueSnackbar,
+        history,
+        updateToken: props.updateToken
+      })
+      )
+      .catch((err: any) => {
+      });
   }, [])
 
   React.useEffect(() => {
-    setTab(props.location.pathname.split('/').reverse()[0])
+    const idUrl = parseInt(props.location.pathname.split('/').reverse()[0], 10)
+    if (idUrl) {
+      const nameUrl = categorias.find((category: any) => category.id === idUrl) || { name: '' }
+      setTab(nameUrl.name)
+    } else {
+      setTab(props.location.pathname.split('/').reverse()[0])
+    }
   }, [props.location.pathname])
 
   type DrawerSide = 'left';
@@ -91,7 +97,7 @@ const Menu = (props: any) => {
       <List>
         {(categorias as Category[]).map((e: Category, i: number) => (
           <ListItem button key={i} className={classes.highlightItem} style={{ background: tab === e.name ? '#f9ecb7' : 'white' }}>
-            <Link className={classes.linkButton} to={`/nominaciones/${e.name}`}>{e.name}</Link>
+            <Link className={classes.linkButton} to={props.match.path === '/nominaciones' ? `/nominaciones/${e.name}` : `/votaciones/${e.id}`}>{e.name}</Link>
           </ListItem>
         ))}
       </List>

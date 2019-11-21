@@ -6,10 +6,10 @@ import { Route } from 'react-router'
 import { withStyles, CssBaseline } from "@material-ui/core";
 import { connect } from "react-redux";
 import * as usuariosActions from "../../actions/usuariosActions";
+import { server } from '../../shared/CONSTANTS/server'
 
 import Autocomplete from '../Autocomplete'
 
-import Search from '@material-ui/icons/Search'
 import { useSnackbar } from 'notistack'
 import { useHistory } from "react-router-dom";
 import axios from 'axios'
@@ -17,8 +17,6 @@ import { Category } from "../../Models/Category";
 import { User } from '../../Models/User'
 import NomineeList from '../NomineeList/index'
 import catchUnauthorized from '../../utils/catchUnauthorized';
-
-const bannerImage = require('../../shared/assets/Main.png')
 
 const Nominaciones = (props: any) => {
   const { classes } = props
@@ -52,7 +50,7 @@ const Nominaciones = (props: any) => {
   const [extra, setExtra] = React.useState('')
 
   React.useEffect(() => {
-    const request = axios.get('https://compushow.link/v1/api/categories', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
+    axios.get(`${server}/v1/api/categories`, { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
       .then((res: any) => {
         setCategorias(res.data)
 
@@ -68,7 +66,7 @@ const Nominaciones = (props: any) => {
   }, [])
 
   React.useEffect(() => {
-    const request = axios.get('https://compushow.link/v1/api/users/all', { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
+    axios.get(`${server}/v1/api/users/all`, { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
       .then((res: any) => {
         setComputistas(res.data)
       })
@@ -88,7 +86,7 @@ const Nominaciones = (props: any) => {
   }, [props.location.pathname])
 
   const onNominate = (key: number, nom1?: number, nom2?: number, aux?: string) => {
-    axios.post(`https://compushow.link/v1/api/nominations`,
+    axios.post(`${server}/v1/api/nominations`,
       nom1 !== 9999 && nom2 !== 9999 && extra !== '' ? { categoryId: key, mainNominee: nom1, auxNominee: nom2, extra: extra } : nom1 !== 9999 && nom2 !== 9999 && extra === '' ? { categoryId: key, mainNominee: nom1, auxNominee: nom2 } : nom1 !== 9999 && nom2 === 9999 && extra === '' ? { categoryId: key, mainNominee: nom1 } : nom1 !== 9999 && nom2 === 9999 && extra !== '' ? { categoryId: key, mainNominee: nom1, extra: aux } : nom1 === 9999 && nom2 === 9999 && extra !== '' ? { categoryId: key, extra: aux } : null,
       { params: {}, headers: { 'Authorization': `Bearer ${props.user.token}` } })
 
@@ -102,7 +100,7 @@ const Nominaciones = (props: any) => {
         setCategoryShouldUpdate(key)(true)
       })
       .catch((err: any) => {
-        if (err.response.status == 409) {
+        if (err.response.status === 409) {
           enqueueSnackbar('Ya has realizado esta nominación', { variant: 'error' })
         } else {
           enqueueSnackbar('Ha ocurrido un error enviando la nominación, ¡revisa los datos!', { variant: 'error' })
