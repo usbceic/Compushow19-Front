@@ -11,6 +11,11 @@ const styles = (theme: Theme) =>
                 }
             },
         },
+        photoMemberMobile: {
+            [theme.breakpoints.down('sm')]: {
+                maxWidth: '180px !important'
+            },
+        },
         commentsMobile: {
             [theme.breakpoints.down('sm')]: {
                 padding: '20px 0 !important'

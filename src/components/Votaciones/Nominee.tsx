@@ -35,7 +35,8 @@ export default function NomineeComp(props: any) {
                 setOpen(true);
             }}>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <img
+                    <img className={classes.photoMemberMobile} 
+                        style={{maxWidth: '216px', borderRadius: '110px'}}
                         src={nominee.isHappy
                             ? nominee.happyPictureUrl
                             : nominee.sadPictureUrl} alt="" />
