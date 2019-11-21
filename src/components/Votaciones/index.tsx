@@ -193,7 +193,7 @@ const Votaciones = (props: any) => {
                                     </div>
                                 </div>
                                 <div style={{ width: '60%', height: '100%' }}>
-                                    <Grid container justify="center" style={{ padding: '40px', paddingBottom: '30px' }}>
+                                    <Grid container justify="center" style={{ padding: '40px', paddingBottom: '70px' }}>
                                         {comentarios.map((e: any, i: number) => (
                                             <Comments classes={classes} key={i} i={i} comment={comentarios[i]} />))}
                                     </Grid>
