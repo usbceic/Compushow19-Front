@@ -172,7 +172,7 @@ const Votaciones = (props: any) => {
                             <div className={classes.votingMobile} style={{ width: '100%', height: 'calc(100vh - 60px)', overflow: 'scroll', display: 'flex' }}>
                                 <div style={{
                                     width: '40%',
-                                    height: category.id == 17? 'calc(100vh + 5*60px)': 'calc(100vh + 60px)',
+                                    height: category.id == 17? 'calc(100vh + 10*60px)': 'calc(100vh + 4*60px)',
                                     backgroundImage: `url(https://compushow.s3.us-east-2.amazonaws.com/backgrounds/Main.png)`,
                                     backgroundSize: 'cover',
                                     backgroundPosition: '55% top',
@@ -193,7 +193,7 @@ const Votaciones = (props: any) => {
                                     </div>
                                 </div>
                                 <div style={{ width: '60%', height: '100%' }}>
-                                    <Grid container justify="center" style={{ padding: '40px', paddingBottom: '30px' }}>
+                                    <Grid container justify="center" style={{ padding: '40px', paddingBottom: '70px' }}>
                                         {comentarios.map((e: any, i: number) => (
                                             <Comments classes={classes} key={i} i={i} comment={comentarios[i]} />))}
                                     </Grid>

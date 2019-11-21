@@ -11,6 +11,22 @@ const styles = (theme: Theme) =>
                 }
             },
         },
+        photoMemberMobile: {
+            [theme.breakpoints.down('sm')]: {
+                maxWidth: '180px !important'
+            },
+        },
+        commentsMobile: {
+            [theme.breakpoints.down('sm')]: {
+                padding: '20px 0 !important'
+            },
+        },
+        commentsDivMobile: {
+            [theme.breakpoints.down('sm')]: {
+                margin: '0 !important',
+                maxWidth: '100% !important',
+            },
+        },
         nomineeMobile: {
             [theme.breakpoints.down('sm')]: {
                 maxWidth: '50% !important'

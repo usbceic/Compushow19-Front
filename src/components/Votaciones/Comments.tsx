@@ -2,18 +2,20 @@ import * as React from 'react'
 import { Grid, Card, CardActionArea, CardContent } from '@material-ui/core'
 
 export default function Comments(props: any) {
+    const { classes } = props
 
     return (
-        <Grid item xs={12} sm={6}
-            style={{ paddingTop: props.id % 2 === 0 ? '25px' : '0px' }}
+        <Grid item xs={12} sm={6} className={classes.commentsMobile}
+            style={{ paddingTop: props.comment.id % 2 == 0? '20px': '0'}}
         >
-            <Card style={{ margin: '0', padding: '0', maxWidth: '220px', maxHeight: '220px' }}>
+            <Card className={classes.commentsDivMobile}
+                style={{ margin: '40px', maxWidth: '280px', maxHeight: '220px', borderRadius: '5px' }}>
                 <CardActionArea style={{ margin: '0', padding: '0' }}>
                     <CardContent style={{ margin: '0', padding: '0' }}>
-                        <div style={{ background: '#4c1a02', color: '#f9ecb7', padding: '10px' }}>
+                        <div style={{ background: '#4c1a02', color: '#f9ecb7', padding: '10px', textAlign: 'center', fontSize: '20px', fontFamily: 'Hamster ' }}>
                             {props.comment.nominee.name}
                         </div>
-                        <div style={{ padding: '10px' }}>
+                        <div style={{ padding: '10px', fontSize: '15px' }}>
                             {props.comment.comment}
                         </div>
                     </CardContent>
@@ -21,4 +23,4 @@ export default function Comments(props: any) {
             </Card>
         </Grid>
     )
-}
+} 
