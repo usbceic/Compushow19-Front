@@ -58,7 +58,7 @@ const SignIn = (props: any) => {
           <Typography variant="h5" align="center" className={classes.h5}>¡Entra con tu USBID!</Typography>
         </div>
         <GoogleLogin
-          clientId="497166089120-s08k71619ql6nnv32m9sv4ga21qpa3eo.apps.googleusercontent.com"
+          clientId="497166089120-vga3nqat0j4m6crg2n5mo5060j3geugk.apps.googleusercontent.com"
           buttonText="Iniciar Sesión"
           onSuccess={onSignUpSuccess}
           onFailure={onSignUpFailure}
