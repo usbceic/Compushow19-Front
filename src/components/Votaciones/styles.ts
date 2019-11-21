@@ -2,6 +2,25 @@ import { createStyles, Theme } from "@material-ui/core";
 
 const styles = (theme: Theme) =>
     createStyles({
+        votingMobile: {
+            [theme.breakpoints.down('sm')]: {
+                flexDirection: 'column',
+                '& div': {
+                    width: '100% !important',
+                    height: 'initial !important',
+                }
+            },
+        },
+        nomineeMobile: {
+            [theme.breakpoints.down('sm')]: {
+                maxWidth: '50% !important'
+            },
+        },
+        noPaddingMobile: {
+            [theme.breakpoints.down('sm')]: {
+                padding: '0 !important'
+            },
+        },
         mobile: {
             [theme.breakpoints.down('sm')]: {
                 height: '72vh'

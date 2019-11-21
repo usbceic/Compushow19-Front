@@ -144,8 +144,6 @@ const Votaciones = (props: any) => {
         }
     }, [props.location.pathname])
 
-    console.log(nominados)
-
     const onVote = (nomId: number, categoryId: number) => {
         axios.post(`${server}/v1/api/votes`,
             { nomineeId: nomId },
@@ -171,13 +169,13 @@ const Votaciones = (props: any) => {
                     exact
                     render={() =>
                         <React.Fragment>
-                            <div style={{ width: '100%', height: 'calc(100vh - 60px)', overflow: 'scroll', display: 'flex' }}>
+                            <div className={classes.votingMobile} style={{ width: '100%', height: 'calc(100vh - 60px)', overflow: 'scroll', display: 'flex' }}>
                                 <div style={{
                                     width: '40%',
-                                    height: '100%',
+                                    height: category.id == 17? 'calc(100vh + 5*60px)': 'calc(100vh + 60px)',
                                     backgroundImage: `url(https://compushow.s3.us-east-2.amazonaws.com/backgrounds/Main.png)`,
                                     backgroundSize: 'cover',
-                                    backgroundPosition: 'top center',
+                                    backgroundPosition: '55% top',
                                     backgroundRepeat: 'no-repeat',
                                     textAlign: 'center',
                                     paddingTop: '40px',
@@ -187,7 +185,7 @@ const Votaciones = (props: any) => {
                                         style={{ marginBottom: '10px' }} alt="" />
 
                                     <Typography align="center" style={{ height: 'auto' }} variant="h4" className={classes.h4}>{category.name}</Typography>
-                                    <div style={{ marginTop: '20px' }}>
+                                    <div className={classes.noPaddingMobile} style={{ marginTop: '20px', paddingBottom: '60px' }}>
                                         <Grid container justify="center">
                                             {nominados.map((e: any, i: number) => (
                                                 <NomineeComp userHasVoted={userHasVoted} classes={classes} onVote={onVote} setSelectedId={setSelectedId} nom={e} key={i} i={i} category={category} />))}

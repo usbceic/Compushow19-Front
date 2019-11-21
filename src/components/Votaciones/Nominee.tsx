@@ -12,6 +12,7 @@ import {Nominee} from '../../Models/Nominee'
 export default function NomineeComp(props: any) {
     const { classes } = props
     const [open, setOpen] = React.useState(false);
+    const [canVote, setCanVote] = React.useState(true)
     const [maxWidth, setMaxWidth] = React.useState<DialogProps['maxWidth']>('sm');
     const [fullWidth, setFullWidth] = React.useState(true);
     const nominee: Nominee = props.nom
@@ -29,9 +30,9 @@ export default function NomineeComp(props: any) {
 
     return (
         <Grid item xs={12} sm={6}
-            style={{ paddingTop: props.i % 2 === 0 ? '25px' : '0px', height: '100%', width: '100%' }}
+            className={classes.nomineeMobile} style={{  paddingTop: props.i % 2 === 0 ? '25px' : '0px', height: '100%', width: '100%' }}
         >
-            <Button style={{ textTransform: 'capitalize' }} onClick={() => {
+            <Button style={{ textTransform: 'capitalize' }} disabled={props.userHasVoted} onClick={() => {
                 setOpen(true);
             }}>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -56,7 +57,8 @@ export default function NomineeComp(props: any) {
                 </div>
                 <DialogContent>
                     <DialogContentText>
-                        <Typography align="center" style={{ height: 'auto', marginTop: '5px' }} variant="h5" className={classes.h5}>Deseas votar por {nominee.name} en la categoria {props.category.name} ?</Typography>
+                        <Typography align="center" style={{ height: 'auto', marginTop: '5px' }} variant="h5" className={classes.h5}>¿Estas seguro que deseas votar por {nominee.name} en la categoria {props.category.name}?</Typography>
+                        <Typography align="center" style={{ height: 'auto', marginTop: '5px' }} variant="h6" className={classes.h6}>Su voto es irreversible</Typography>
                     </DialogContentText>
                 </DialogContent>
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
